@@ -8,7 +8,7 @@ To check that it is running go to [http://localhost:5000/]().
 
 All API endpoints will be stored in the `/endpoints` folder. There we can separate them out into multiple files for organization.
 
-In `endpoints/examples` you can see some VERY basic examples showing how Flask works. Feel free to add a new endpoint (as simple as a function with the little `@current_app.route` on top) just to play around and get comfortable.
+In `endpoints/examples.py` you can see some VERY basic examples showing how Flask works. Feel free to add a new endpoint (as simple as a function with the little `@current_app.route` on top) just to play around and get comfortable. There's some comments in there to try to explain what's going on.
 
 ## Maintenance
 
