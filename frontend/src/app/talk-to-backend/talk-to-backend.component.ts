@@ -9,7 +9,7 @@ import { BACKEND_URL } from 'src/constants';
 })
 export class TalkToBackendComponent {
   /** A variable that is pulled by the component.html file and displayed. */
-  public backendMessage: string = '';
+  public backendMessage: string = 'Backend response will appear here...';
 
   constructor(private readonly http: HttpClient) {}
 

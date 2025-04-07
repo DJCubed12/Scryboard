@@ -1,11 +1,9 @@
-<div>
+<div class="content">
   <!-- Feel free to add some random HTML here, to see how Angular places and builds stuff -->
 
   <!-- the (click) here is an event listener. Whenever that event occurs, the given javascript code is ran (in this case its a function call) -->
-  <h3 (click)="talkToBackend()">
-    Click <b>here</b> to test the Flask backend!
-  </h3>
+  <button (click)="talkToBackend()">Test the Flask backend</button>
 
   <!-- Public fields and methods in the component.ts file are available in the corresponding HTML file. They are also kept up to date; if backendMessage changes during runtime, it will be changed in the HTML too. -->
-  <p>{{ backendMessage }}</p>
+  <span>{{ backendMessage }}</span>
 </div>

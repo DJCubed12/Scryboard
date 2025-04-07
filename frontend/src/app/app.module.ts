@@ -10,6 +10,7 @@ import { TopBarComponent } from './shared/top-bar/top-bar.component';
 import { BottomBarComponent } from './shared/bottom-bar/bottom-bar.component';
 
 import { MainPageComponent } from './main-page/main-page.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 import { TalkToBackendComponent } from './talk-to-backend/talk-to-backend.component';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { TalkToBackendComponent } from './talk-to-backend/talk-to-backend.compon
     BottomBarComponent,
     MainPageComponent,
     TalkToBackendComponent,
+    AdminPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule],
   providers: [],
