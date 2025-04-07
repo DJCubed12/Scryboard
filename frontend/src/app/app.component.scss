@@ -1,0 +1,14 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+// Temporary; for debug purposes
+.color-me {
+  background-color: green;
+}
