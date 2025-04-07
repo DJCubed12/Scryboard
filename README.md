@@ -4,7 +4,9 @@ Trading Card Game Playmat
 
 ## Running it
 
-In the `frontend` folder run `ng serve`.
+Assuming you did everything in the "First Time Setup" section...
+
+In the `frontend` folder run `npm run start`.
 
 Then, in another terminal, go to the `backend` folder run:
 ```
@@ -19,7 +21,7 @@ Open up the website at [localhost:4200](http://localhost:4200/).
 
 #### On Windows
 
-If you don't already have _NodeJS_ installed, do so [here](https://nodejs.org/en) (I used 18.18.0 LTS, but anything with version 18 should work). During the installation make sure you check this box:
+If you don't already have _NodeJS_ installed, do so [here](https://nodejs.org/en) (I used 18.18.0 LTS, but anything with version 18 should work). During the installation make sure you check the box that says install Chocolatey:
 
 ![Check the Chocolatey box!](readme-images\chocolatey_box.png)
 
