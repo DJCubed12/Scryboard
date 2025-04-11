@@ -1,9 +1,23 @@
 <div>
   <div>
-    <button (click)="searchByTitle('Profane')">Search</button>
+	<input type = "text" placeholder = "Card Name" #title>
+	<button (click)="searchByTitle(title.value.trim())">
+		Search
+	</button>
+  </div>
+
+  <div *ngFor="let card of cards">
+    <h5>{{ card["name"] }}</h5>
+    <div *ngIf="getCardImage(card) !== null; else no_image">
+      <img [src]="getCardImage(card)" />
+    </div>
+
+    <ng-template #no_image>
+      <p><i>No image for this card</i></p>
+    </ng-template>
   </div>
 
   <div>
-    {{ results | json }}
+    <pre>{{ results | json }}</pre>
   </div>
 </div>
