@@ -12,6 +12,7 @@ import { BottomBarComponent } from './shared/bottom-bar/bottom-bar.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { TalkToBackendComponent } from './talk-to-backend/talk-to-backend.component';
+import { CardSearchComponent } from './admin-page/card-search/card-search.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TalkToBackendComponent } from './talk-to-backend/talk-to-backend.compon
     MainPageComponent,
     TalkToBackendComponent,
     AdminPageComponent,
+    CardSearchComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule],
   providers: [],
