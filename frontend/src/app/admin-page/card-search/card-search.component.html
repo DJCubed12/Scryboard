@@ -1,6 +1,9 @@
 <div>
   <div>
-    <button (click)="searchByTitle('Profane')">Search</button>
+	<input type = "text" placeholder = "Card Name" #title>
+	<button (click)="searchByTitle(title.value.trim())">
+		Search
+	</button>
   </div>
 
   <div>

@@ -13,7 +13,7 @@ export class CardSearchComponent {
   constructor(private readonly cardAPI: CardAPIService) {}
 
   public searchByTitle(cardTitle: string) {
-    this.cardAPI.searchByTitle('profane').subscribe(
+    this.cardAPI.searchByTitle(cardTitle).subscribe(
       (response) => (this.results = response),
       (error) => {
         console.error(error);
