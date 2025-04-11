@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { CardAPIService } from 'src/app/services/external-api.service';
+import { CardAPIService } from 'src/app/services/card-api.service';
 
 @Component({
   selector: 'card-search',

@@ -1,9 +1,7 @@
 <div>
   <div>
-	<input type = "text" placeholder = "Card Name" #title>
-	<button (click)="searchByTitle(title.value.trim())">
-		Search
-	</button>
+    <input type="text" placeholder="Card Name" #title />
+    <button (click)="searchByTitle(title.value.trim())">Search</button>
   </div>
 
   <div *ngFor="let card of cards">
@@ -16,6 +14,8 @@
       <p><i>No image for this card</i></p>
     </ng-template>
   </div>
+
+  <h2>The raw JSON response</h2>
 
   <div>
     <pre>{{ results | json }}</pre>

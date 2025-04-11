@@ -13,6 +13,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { TalkToBackendComponent } from './talk-to-backend/talk-to-backend.component';
 import { CardSearchComponent } from './admin-page/card-search/card-search.component';
+import { DisplayCardsComponent } from './shared/display-cards/display-cards.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { CardSearchComponent } from './admin-page/card-search/card-search.compon
     TalkToBackendComponent,
     AdminPageComponent,
     CardSearchComponent,
+    DisplayCardsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule],
   providers: [],
