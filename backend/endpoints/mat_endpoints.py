@@ -2,7 +2,7 @@ from flask import current_app, request
 
 
 @current_app.post("/rfid")
-def hello_world():
+def post_rfid():
     data = request.json
     print("New RFID post:", data)
 
