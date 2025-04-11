@@ -3,7 +3,7 @@
 from typing import Dict
 from threading import Lock
 
-from backend.card import Card
+from card import Card
 
 
 class CardRepository:
@@ -34,7 +34,7 @@ class CardRepository:
 
     def get_all(self) -> list[Card]:
         with self._lock:
-            return [card for card in self._cards.values]
+            return [card for card in self._cards.values()]
 
     def set_API_ID(self, rfid: int, api_id: str) -> None:
         """Raises KeyError if no card with given rfid was found."""
