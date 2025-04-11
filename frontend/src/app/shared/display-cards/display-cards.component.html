@@ -1,0 +1,14 @@
+<div>
+  <h2>Current cards are:</h2>
+
+  <div class="horizontal">
+    <span class="padded" *ngFor="let card of cards">
+      <p>API ID: {{ card.api_id }}</p>
+      <p>Mat ID: {{ card.mat_id }}</p>
+    </span>
+  </div>
+
+  <div>
+    <button (click)="refreshCardList()">Refresh card list</button>
+  </div>
+</div>
