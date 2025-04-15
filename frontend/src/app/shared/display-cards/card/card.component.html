@@ -1,0 +1,12 @@
+<div>
+  <p>
+    API ID:
+    <span *ngIf="card.api_id; else pairButton">
+      {{ card.api_id }}
+    </span>
+    <ng-template #pairButton>
+      <button>Pair</button>
+    </ng-template>
+  </p>
+  <p>Mat ID: {{ card.mat_id }}</p>
+</div>

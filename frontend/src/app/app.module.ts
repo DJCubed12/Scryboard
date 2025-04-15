@@ -14,6 +14,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { TalkToBackendComponent } from './talk-to-backend/talk-to-backend.component';
 import { CardSearchComponent } from './admin-page/card-search/card-search.component';
 import { DisplayCardsComponent } from './shared/display-cards/display-cards.component';
+import { CardComponent } from './shared/display-cards/card/card.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { DisplayCardsComponent } from './shared/display-cards/display-cards.comp
     AdminPageComponent,
     CardSearchComponent,
     DisplayCardsComponent,
+    CardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule],
   providers: [],
