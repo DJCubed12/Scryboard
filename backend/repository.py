@@ -47,7 +47,7 @@ class CardRepository:
             if rfid in self._cards:
                 raise ValueError()
             else:
-                self._cards[rfid] = Card(mat_id, api_id)
+                self._cards[rfid] = Card(rfid, mat_id, api_id)
 
     def remove_card(self, rfid) -> bool:
         """Returns True if rfid existed and was successfully deleted."""
