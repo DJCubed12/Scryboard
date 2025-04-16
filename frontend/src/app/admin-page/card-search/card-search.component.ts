@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CardAPIService } from 'src/app/services/card-api.service';
 import { GameStateService } from 'src/app/services/game-state.service';
@@ -18,7 +18,8 @@ export class CardSearchComponent implements OnInit {
   constructor(
     private readonly cardAPI: CardAPIService,
     private readonly gameStateService: GameStateService,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly router: Router
   ) {}
 
   public ngOnInit(): void {
@@ -59,7 +60,10 @@ export class CardSearchComponent implements OnInit {
     }
 
     this.gameStateService.pairAPIId(this.rfid, card['id']).subscribe(
-      (resp) => console.log('Successfully updated API ID!'),
+      (resp) => {
+        console.log('Successfully updated API ID!');
+        this.router.navigate(['/admin']);
+      },
       (err) =>
         console.error(`Error updating API ID for card RFID=${this.rfid}`, err)
     );
