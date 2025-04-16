@@ -17,4 +17,15 @@ export class GameStateService {
       .get<{ cards: Card[] }>(BACKEND_URL + '/cards')
       .pipe(map((msg: { cards: Card[] }) => msg.cards));
   }
+
+  public pairAPIId(
+    rfid: number,
+    api_id: string
+  ): Observable<{ success: string }> {
+    const body = { api_id };
+    return this.http.patch<{ success: string }>(
+      BACKEND_URL + `/card/${rfid}`,
+      body
+    );
+  }
 }
