@@ -9,7 +9,7 @@ def get_current_board():
 
 
 @current_app.patch("/card/<rfid>")
-def pair_api_id(rfid: int):
+def pair_api_id(rfid: str):
     data = request.json
     print(f"Patch for card RFID#{rfid}:", data)
 
