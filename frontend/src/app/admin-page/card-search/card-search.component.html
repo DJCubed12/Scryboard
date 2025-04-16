@@ -1,11 +1,13 @@
 <div>
+  <h2>Choose card to pair with RFID {{ rfid }}</h2>
+
   <div>
     <input type="text" placeholder="Card Name" #title />
     <button (click)="searchByTitle(title.value.trim())">Search</button>
   </div>
 
   <div *ngFor="let card of cards">
-    <h5>{{ card["name"] }}</h5>
+    <h5>{{ card["name"] }} <button (click)="pairAPIId(card)">Pair</button></h5>
     <div *ngIf="getCardImage(card) !== null; else no_image">
       <img [src]="getCardImage(card)" />
     </div>

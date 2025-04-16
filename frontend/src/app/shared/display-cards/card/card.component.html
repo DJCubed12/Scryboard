@@ -6,7 +6,7 @@
       {{ card.api_id }}
     </span>
     <ng-template #pairButton>
-      <button>Pair</button>
+      <button [routerLink]="['/admin', 'pair', card.rfid]">Pair</button>
     </ng-template>
   </p>
   <p>Mat ID: {{ card.mat_id }}</p>

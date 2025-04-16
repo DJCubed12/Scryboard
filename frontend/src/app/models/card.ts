@@ -1,5 +1,5 @@
 export interface Card {
-  rfid: number;
-  mat_id: number;
+  rfid: string;
+  mat_id: string;
   api_id: string | null;
 }

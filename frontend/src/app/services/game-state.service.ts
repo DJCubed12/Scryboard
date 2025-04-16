@@ -19,7 +19,7 @@ export class GameStateService {
   }
 
   public pairAPIId(
-    rfid: number,
+    rfid: string,
     api_id: string
   ): Observable<{ success: string }> {
     const body = { api_id };
