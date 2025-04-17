@@ -6,3 +6,4 @@ name = "pypi"
 [packages]
 flask = "*"
 flask-cors = "*"
+requests = "*"

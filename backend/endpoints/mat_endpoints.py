@@ -2,6 +2,7 @@ from flask import current_app, request
 
 from repository import CardRepository
 
+from .webhook_publisher import invoke_cardupdate
 
 @current_app.post("/rfid")
 def post_rfid():
@@ -19,6 +20,7 @@ def post_rfid():
 
     try:
         CardRepository().add_card(rfid, mat_id)
+        invoke_cardupdate()
         return {"success": True, "rfid": rfid, "mat_id": mat_id}
     except ValueError as e:
         return {

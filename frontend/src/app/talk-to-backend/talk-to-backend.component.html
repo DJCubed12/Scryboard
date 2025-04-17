@@ -6,4 +6,7 @@
 
   <!-- Public fields and methods in the component.ts file are available in the corresponding HTML file. They are also kept up to date; if backendMessage changes during runtime, it will be changed in the HTML too. -->
   <span>{{ backendMessage }}</span>
+
+  <button (click)="subscribeToCardUpdates()">Test subscribe to webhook</button>
+  <span>{{ webhookMessage }}</span>
 </div>

@@ -10,6 +10,7 @@ import { BACKEND_URL } from 'src/constants';
 export class TalkToBackendComponent {
   /** A variable that is pulled by the component.html file and displayed. */
   public backendMessage: string = 'Backend response will appear here...';
+  public webhookMessage: string = 'Webhook not connected'
 
   constructor(private readonly http: HttpClient) {}
 
@@ -25,6 +26,15 @@ export class TalkToBackendComponent {
         console.error(`Oh no! There was an error! ${error}`);
         this.backendMessage =
           'Uh oh. Something went wrong. Are you sure the backend is running?';
+      }
+    );
+  }
+
+  public subscribeToCardUpdates() {
+    this.http.post<{ msg: string }>(BACKEND_URL + 'webhook_cardupdate', null).subscribe(
+      (response) => {this.webhookMessage = response['msg']},
+      (error) => {
+        this.webhookMessage = 'Failed to establish webhook!'
       }
     );
   }
