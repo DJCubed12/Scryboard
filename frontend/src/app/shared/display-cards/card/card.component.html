@@ -1,0 +1,13 @@
+<div>
+  <p>RFID: {{ card.rfid }}</p>
+  <p>
+    API ID:
+    <span *ngIf="card.api_id; else pairButton">
+      {{ card.api_id }}
+    </span>
+    <ng-template #pairButton>
+      <button [routerLink]="['/admin', 'pair', card.rfid]">Pair</button>
+    </ng-template>
+  </p>
+  <p>Mat ID: {{ card.mat_id }}</p>
+</div>

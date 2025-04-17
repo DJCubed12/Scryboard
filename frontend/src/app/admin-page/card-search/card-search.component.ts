@@ -1,17 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CardAPIService } from 'src/app/services/card-api.service';
+import { GameStateService } from 'src/app/services/game-state.service';
 
 @Component({
   selector: 'card-search',
   templateUrl: './card-search.component.html',
   styleUrls: ['./card-search.component.scss'],
 })
-export class CardSearchComponent {
+export class CardSearchComponent implements OnInit {
   public results: any = undefined;
   public cards: any = [];
+  /** The RFID that the chosen card will be associated with. */
+  public rfid: string | null = null;
 
-  constructor(private readonly cardAPI: CardAPIService) {}
+  constructor(
+    private readonly cardAPI: CardAPIService,
+    private readonly gameStateService: GameStateService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router
+  ) {}
+
+  public ngOnInit(): void {
+    this.rfid = this.route.snapshot.paramMap.get('rfid');
+  }
 
   public searchByTitle(cardTitle: string) {
     this.cardAPI.searchByTitle(cardTitle).subscribe(
@@ -36,5 +49,23 @@ export class CardSearchComponent {
       // Card response doesn't follow normal format
     }
     return null;
+  }
+
+  public pairAPIId(card: any) {
+    if (this.rfid === null) {
+      console.error('Error: Can not pair without an RFID (rfid is null)');
+      return;
+    } else if (card['id'] === undefined) {
+      console.error("Error: Can't find card's ID.");
+    }
+
+    this.gameStateService.pairAPIId(this.rfid, card['id']).subscribe(
+      (resp) => {
+        console.log('Successfully updated API ID!');
+        this.router.navigate(['/admin']);
+      },
+      (err) =>
+        console.error(`Error updating API ID for card RFID=${this.rfid}`, err)
+    );
   }
 }

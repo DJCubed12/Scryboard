@@ -3,11 +3,21 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MainPageComponent } from './main-page/main-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
+import { CardSearchComponent } from './admin-page/card-search/card-search.component';
 
 const routes: Routes = [
   {
     path: 'admin',
-    component: AdminPageComponent,
+    children: [
+      {
+        path: '',
+        component: AdminPageComponent,
+      },
+      {
+        path: 'pair/:rfid',
+        component: CardSearchComponent,
+      },
+    ],
   },
   {
     // The default route

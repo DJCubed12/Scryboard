@@ -28,7 +28,7 @@ class CardRepository:
             self._cards: Dict[int, Card] = {}
             """Dictionary with RFID index and Card values."""
 
-    def get_card(self, rfid: int) -> Card | None:
+    def get_card(self, rfid: str) -> Card | None:
         with self._lock:
             return self._cards.get(rfid)
 
@@ -36,20 +36,20 @@ class CardRepository:
         with self._lock:
             return [card for card in self._cards.values()]
 
-    def set_API_ID(self, rfid: int, api_id: str) -> None:
+    def set_API_ID(self, rfid: str, api_id: str) -> None:
         """Raises KeyError if no card with given rfid was found."""
         with self._lock:
             self._cards[rfid].api_id = api_id
 
-    def add_card(self, rfid: int, mat_id: int, api_id: str | None = None) -> None:
+    def add_card(self, rfid: str, mat_id: str, api_id: str | None = None) -> None:
         """Raises ValueError if given RFID already exists."""
         with self._lock:
             if rfid in self._cards:
                 raise ValueError()
             else:
-                self._cards[rfid] = Card(mat_id, api_id)
+                self._cards[rfid] = Card(rfid, mat_id, api_id)
 
-    def remove_card(self, rfid) -> bool:
+    def remove_card(self, rfid: str) -> bool:
         """Returns True if rfid existed and was successfully deleted."""
         with self._lock:
             if rfid in self._cards:
