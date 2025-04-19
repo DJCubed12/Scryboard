@@ -1,5 +1,4 @@
 <div>
-  <a href="http://localhost:5000/file" download>
-    <button>Export cards</button>
-  </a>
+  <input type="text" placeholder="Mat ID (leave blank for all)" #matIdInput />
+  <button (click)="export(matIdInput.value)">Export cards</button>
 </div>

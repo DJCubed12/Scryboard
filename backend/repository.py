@@ -1,6 +1,6 @@
 """Stores the RFID-API ID pairings."""
 
-from typing import Dict
+from typing import Any, Dict
 from threading import Lock
 
 from card import Card
@@ -36,6 +36,10 @@ class CardRepository:
         with self._lock:
             return [card for card in self._cards.values()]
 
+    def get_all_jsonable(self) -> list[dict[str, Any]]:
+        with self._lock:
+            return [card.toJSON() for card in self._cards.values()]
+
     def set_API_ID(self, rfid: str, api_id: str) -> None:
         """Raises KeyError if no card with given rfid was found."""
         with self._lock:
@@ -61,3 +65,6 @@ class CardRepository:
     def clear(self) -> None:
         with self._lock:
             self._cards.clear()
+
+
+card_repository = CardRepository()
