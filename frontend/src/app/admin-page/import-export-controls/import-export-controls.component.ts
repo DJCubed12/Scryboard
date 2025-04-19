@@ -39,6 +39,7 @@ export class ImportExportControlsComponent {
   public import() {
     if (this.importFile) {
       this.importExportService.sendImportFile$(this.importFile).subscribe(
+        // TODO: Resp will contain the updated card list; this could be used to immediately update the frontend's list, instead of waiting for the user to click refresh
         (resp) => console.log(resp),
         (err) => console.error('Error while importing from file', err)
       );
