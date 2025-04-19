@@ -8,6 +8,8 @@ import { ImportExportService } from 'src/app/services/import-export.service';
   styleUrls: ['./import-export-controls.component.scss'],
 })
 export class ImportExportControlsComponent {
+  private importFile: File | null = null;
+
   constructor(private readonly importExportService: ImportExportService) {}
 
   public export(
@@ -25,5 +27,21 @@ export class ImportExportControlsComponent {
         downloadLink.click();
         downloadLink.remove();
       });
+  }
+
+  public changeImportFile(e: Event) {
+    let fileList: FileList | null = (e.target as any).files;
+    if (fileList && fileList.length >= 1) {
+      this.importFile = fileList[0];
+    }
+  }
+
+  public import() {
+    if (this.importFile) {
+      this.importExportService.sendImportFile$(this.importFile).subscribe(
+        (resp) => console.log(resp),
+        (err) => console.error('Error while importing from file', err)
+      );
+    }
   }
 }

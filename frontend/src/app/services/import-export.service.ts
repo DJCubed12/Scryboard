@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
@@ -37,5 +37,12 @@ export class ImportExportService {
           );
         })
       );
+  }
+
+  public sendImportFile$(file: File) {
+    const formData: FormData = new FormData();
+    formData.append('importFile', file, file.name);
+
+    return this.http.post(BACKEND_URL + '/cards', formData);
   }
 }

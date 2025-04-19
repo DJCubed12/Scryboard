@@ -2,7 +2,7 @@
 
 import json
 
-from flask import Response, current_app
+from flask import Response, current_app, request
 
 from repository import card_repository
 
@@ -34,3 +34,21 @@ def export(mat_id: str):
         mimetype="application/json",
         headers={"Content-Disposition": "attachment;filename=scryboard-export.json"},
     )
+
+
+@current_app.post("/cards")
+def import_cards():
+    try:
+        file = request.files["importFile"]
+    except KeyError:
+        return {
+            "message": "Missing file for importing cards. Upload a JSON file under 'importFile'"
+        }, 400
+
+    if file.content_type != "application/json":
+        return {"message": "Imported file must be in JSON format"}, 400
+
+    data = json.loads(file.stream.read())
+    print("File contents are:\n", data)
+
+    return {"echo": data}
