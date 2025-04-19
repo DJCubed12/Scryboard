@@ -5,6 +5,7 @@ import json
 from flask import Response, current_app, request
 
 from repository import card_repository
+from .frontend_endpoints import get_current_board
 
 
 @current_app.get("/cards/export")
@@ -36,8 +37,10 @@ def export(mat_id: str):
     )
 
 
-@current_app.post("/cards")
+@current_app.post("/cards/import")
 def import_cards():
+    """Imports cards from the 'importFile' file in post form data, then responds with the current card list."""
+
     try:
         file = request.files["importFile"]
     except KeyError:
@@ -48,7 +51,11 @@ def import_cards():
     if file.content_type != "application/json":
         return {"message": "Imported file must be in JSON format"}, 400
 
-    data = json.loads(file.stream.read())
-    print("File contents are:\n", data)
+    cards_json_data = json.loads(file.stream.read())
+    print(f"Importing {len(cards_json_data)} cards...")
+    try:
+        card_repository.import_cards(cards_json_data)
+    except KeyError as e:
+        return {"message": str(e).replace('"', "")}, 400
 
-    return {"echo": data}
+    return get_current_board()
