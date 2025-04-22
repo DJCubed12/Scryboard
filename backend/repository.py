@@ -28,6 +28,8 @@ class CardRepository:
             self._cards: Dict[int, Card] = {}
             """Dictionary with RFID index and Card values."""
 
+    # ----- READ OPERATIONS -----
+
     def get_card(self, rfid: str) -> Card | None:
         with self._lock:
             return self._cards.get(rfid)
@@ -39,6 +41,8 @@ class CardRepository:
     def get_all_jsonable(self) -> list[dict[str, Any]]:
         with self._lock:
             return [card.toJSON() for card in self._cards.values()]
+
+    # ----- CREATE OPERATIONS -----
 
     def add_card(
         self,
@@ -60,23 +64,43 @@ class CardRepository:
         with self._lock:
             self._cards.update(card_dict)
 
+    # ----- DELETE OPERATIONS -----
+
     def remove_card(self, rfid: str) -> bool:
-        """Returns True if rfid existed and was successfully deleted."""
+        """Raises KeyError if no card with given rfid was found."""
         with self._lock:
-            if rfid in self._cards:
-                self._cards.pop(rfid)
-                return True
-            else:
-                return False
+            self._cards.pop(rfid)
 
     def clear(self) -> None:
         with self._lock:
             self._cards.clear()
 
+    # ----- UPDATE OPERATIONS -----
+
+    def set_zone(self, rfid: str, zone: MatZone | None):
+        """Raises KeyError if no card with given rfid was found."""
+        with self._lock:
+            self._cards[rfid].zone = zone
+
     def set_API_ID(self, rfid: str, api_id: str) -> None:
         """Raises KeyError if no card with given rfid was found."""
         with self._lock:
             self._cards[rfid].api_id = api_id
+
+    def set_images(
+        self, rfid: str, front_image: str | None, back_image: str | None
+    ) -> None:
+        """Raises KeyError if no card with given rfid was found. Only updates image if value is given (None will not delete existing image)."""
+        with self._lock:
+            if front_image:
+                self._cards[rfid].front_image = front_image
+            if back_image:
+                self._cards[rfid].back_image = back_image
+
+    def flip_card(self, rfid: str, to_face_up: bool):
+        """Raises KeyError if no card with given rfid was found."""
+        with self._lock:
+            self._cards[rfid].is_face_up = to_face_up
 
 
 card_repository = CardRepository()
