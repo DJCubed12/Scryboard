@@ -1,15 +1,15 @@
 from flask import current_app, request
 
-from repository import CardRepository
+from repository import card_repository
 
 
 @current_app.get("/cards")
 def get_current_board():
-    return {"cards": [card.toJSON() for card in CardRepository().get_all()]}
+    return {"cards": card_repository.get_all_jsonable()}
 
 
 @current_app.patch("/card/<rfid>")
-def pair_api_id(rfid: str):
+def pair_card(rfid: str):
     data = request.json
     print(f"Patch for card RFID#{rfid}:", data)
 
@@ -21,8 +21,21 @@ def pair_api_id(rfid: str):
             "message": "Must provide an api_id field.",
         }, 400
 
+    # Get card image URLs, if provided
     try:
-        CardRepository().set_API_ID(rfid, api_id)
+        front_image: str | None = data["front_image"]
+    except KeyError:
+        front_image = None
+    try:
+        back_image: str | None = data["back_image"]
+    except KeyError:
+        back_image = None
+
+    try:
+        card_repository.set_API_ID(rfid, api_id)
+        if front_image or back_image:
+            card_repository.set_images(rfid, front_image, back_image)
+
         return {"success": True, "rfid": rfid, "api_id": api_id}
     except KeyError as e:
         return {
