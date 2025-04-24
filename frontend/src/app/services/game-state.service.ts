@@ -20,9 +20,11 @@ export class GameStateService {
 
   public pairAPIId(
     rfid: string,
-    api_id: string
+    api_id: string,
+    front_image: string | null = null,
+    back_image: string | null = null
   ): Observable<{ success: string }> {
-    const body = { api_id };
+    const body = { api_id, front_image, back_image };
     return this.http.patch<{ success: string }>(
       BACKEND_URL + `/card/${rfid}`,
       body

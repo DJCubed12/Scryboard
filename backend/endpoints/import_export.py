@@ -5,6 +5,7 @@ import json
 from flask import Response, current_app, request
 
 from repository import card_repository
+from card_import_service import card_import_service
 from .frontend_endpoints import get_current_board
 
 
@@ -54,7 +55,7 @@ def import_cards():
     cards_json_data = json.loads(file.stream.read())
     print(f"Importing {len(cards_json_data)} cards...")
     try:
-        card_repository.import_cards(cards_json_data)
+        card_import_service.import_cards(cards_json_data)
     except KeyError as e:
         return {"message": str(e).replace('"', "")}, 400
 

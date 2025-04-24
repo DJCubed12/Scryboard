@@ -1,0 +1,38 @@
+[
+  {
+    "rfid": "395fcb4bf89a60e4",
+    "mat_id": "86bacc7f4ce3c86f",
+    "api_id": "61fc0fba-c285-4fad-85a6-79fd7f3f9c35",
+    "is_face_up": false,
+    "front_image": "https://cards.scryfall.io/small/front/6/1/61fc0fba-c285-4fad-85a6-79fd7f3f9c35.jpg?1690006068",
+    "back_image": null,
+    "zone": null
+  },
+  {
+    "rfid": "5a77ad3958658aed",
+    "mat_id": "86bacc7f4ce3c86f",
+    "api_id": "20e94e17-2e4c-41cd-8cc5-39ab41037287",
+    "is_face_up": false,
+    "front_image": null,
+    "back_image": null,
+    "zone": null
+  },
+  {
+    "rfid": "032f89c8ef82fa71",
+    "mat_id": "88f19eb8297306e9",
+    "api_id": "362ec364-39c1-4a4b-8dfa-268fad2effdd",
+    "is_face_up": false,
+    "front_image": "https://cards.scryfall.io/small/front/3/6/362ec364-39c1-4a4b-8dfa-268fad2effdd.jpg?1576383833",
+    "back_image": null,
+    "zone": null
+  },
+  {
+    "rfid": "75ebd78352a17093",
+    "mat_id": "88f19eb8297306e9",
+    "api_id": null,
+    "is_face_up": false,
+    "front_image": null,
+    "back_image": null,
+    "zone": null
+  }
+]
