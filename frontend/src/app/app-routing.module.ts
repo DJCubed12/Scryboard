@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MainPageComponent } from './main-page/main-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
+import { OnlineGamesPageComponent } from './online-games-page/online-games-page.component';
+import { LocalGamesPageComponent } from './local-games-page/local-games-page.component';
 import { CardSearchComponent } from './admin-page/card-search/card-search.component';
 
 const routes: Routes = [
@@ -18,6 +20,24 @@ const routes: Routes = [
         component: CardSearchComponent,
       },
     ],
+  },
+  {
+    path: 'online',
+    children: [
+      {
+        path: '',
+        component: OnlineGamesPageComponent,
+      },
+    ]
+  },
+  {
+    path: 'local',
+    children: [
+      {
+        path: '',
+        component: LocalGamesPageComponent,
+      },
+    ]
   },
   {
     // The default route
