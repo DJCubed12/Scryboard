@@ -53,3 +53,28 @@ def pair_card(rfid: str):
             "success": False,
             "message": f"No card with rfid={rfid}",
         }, 404
+
+
+@current_app.patch("/card/<rfid>/flip")
+def flip_card(rfid: str):
+    data = request.json
+    try:
+        to_face_up: bool = data["to_face_up"]
+    except (KeyError, ValueError):
+        return {
+            "success": False,
+            "message": "'to_face_up' boolean field missing",
+        }, 400
+
+    try:
+        card_repository.flip_card(rfid, to_face_up)
+        return {
+            "success": True,
+            "rfid": rfid,
+            "is_face_up": to_face_up,
+        }
+    except KeyError as e:
+        return {
+            "success": False,
+            "message": f"Card with rfid={rfid} not found",
+        }, 404

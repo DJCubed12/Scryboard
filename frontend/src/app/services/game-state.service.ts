@@ -37,6 +37,17 @@ export class GameStateService {
     );
   }
 
+  public flipCard(
+    rfid: string,
+    to_face_up: boolean
+  ): Observable<{ success: string }> {
+    const body = { to_face_up };
+    return this.http.patch<{ success: string }>(
+      BACKEND_URL + `card/${rfid}/flip`,
+      body
+    );
+  }
+
   public setZone(
     rfid: string,
     zone: MatZone | null

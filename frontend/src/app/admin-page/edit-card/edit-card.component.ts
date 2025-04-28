@@ -39,4 +39,10 @@ export class EditCardComponent {
       .setZone(this.rfid!, matZone)
       .subscribe((msg) => this.reloadCard());
   }
+
+  public flip() {
+    this.gameStateService
+      .flipCard(this.rfid!, !this.card?.is_face_up)
+      .subscribe((msg) => this.reloadCard());
+  }
 }
