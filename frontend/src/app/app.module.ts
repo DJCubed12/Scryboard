@@ -11,6 +11,8 @@ import { BottomBarComponent } from './shared/bottom-bar/bottom-bar.component';
 
 import { MainPageComponent } from './main-page/main-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
+import { OnlineGamesPageComponent } from './online-games-page/online-games-page.component';
+import { LocalGamesPageComponent } from './local-games-page/local-games-page.component';
 import { TalkToBackendComponent } from './talk-to-backend/talk-to-backend.component';
 import { CardSearchComponent } from './admin-page/card-search/card-search.component';
 import { DisplayCardsComponent } from './shared/display-cards/display-cards.component';

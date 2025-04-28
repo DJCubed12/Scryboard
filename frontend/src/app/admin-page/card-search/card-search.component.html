@@ -5,13 +5,54 @@
     <input type="text" placeholder="Card Name" #title />
     <button (click)="searchByTitle(title.value.trim())">Search</button>
   </div>
+  
 
-  <div *ngFor="let card of cards">
-    <h5>{{ card["name"] }} <button (click)="pairAPIId(card)">Pair</button></h5>
-    <div *ngIf="getCardImage(card) !== null; else no_image">
-      <img [src]="getCardImage(card)" />
-    </div>
+  <div>
+    <table >
+      <tr >
+        <td  *ngFor="let card of cards.slice(0, 12); let i = index">
+          <h5 >{{ card["name"] }} </h5>
+        </td>
+      </tr>
+      <tr>
+        <td *ngFor="let card of cards.slice(0, 12); let i = index">
+          <span >
+            <span *ngIf="getCardImage(card) !== null; else no_image"><img [src]="getCardImage(card)" /></span>
+          </span>
+          <button (click)="pairAPIId(card)">Pair</button>
+        </td>
+      </tr>
+      <tr>
+        <td *ngFor="let card of cards.slice(12, 24); let i = index">
+          <h5 *ngIf="getCardImage(card)">{{ card["name"] }} </h5>
+        </td>
+      </tr>
+      <tr>
+        <td *ngFor="let card of cards.slice(12, 24); let i = index">
+          <span *ngIf="getCardImage(card) !== null; else no_image">
+            <img [src]="getCardImage(card)" />
+          </span>
+          <button (click)="pairAPIId(card)">Pair</button>
+        </td>
+      </tr>
+      <!--<tr>
+        <td *ngFor="let card of cards.slice(24, 36); let i = index">
+          <h5 *ngIf="getCardImage(card)">{{ card["name"] }} </h5>
+        </td>
+      </tr>
+      <tr>
+        <td *ngFor="let card of cards.slice(24, 36); let i = index">
+          <span *ngIf="getCardImage(card) !== null; else no_image">
+            <img [src]="getCardImage(card)" />
+          </span>
+          <button (click)="pairAPIId(card)">Pair</button>
+        </td>
+      </tr>-->
+    </table> 
 
+    <ng-template #break>
+      <p><i>Nothing is meant to be here</i></p>
+    </ng-template>
     <ng-template #no_image>
       <p><i>No image for this card</i></p>
     </ng-template>
