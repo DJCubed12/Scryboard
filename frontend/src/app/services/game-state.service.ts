@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { map, Observable } from 'rxjs';
 
-import { Card } from '../models/card';
+import { Card, MatZone } from '../models/card';
 import { BACKEND_URL } from 'src/constants';
 
 @Injectable({
@@ -32,7 +32,18 @@ export class GameStateService {
   ): Observable<{ success: string }> {
     const body = { api_id, front_image, back_image };
     return this.http.patch<{ success: string }>(
-      BACKEND_URL + `/card/${rfid}`,
+      BACKEND_URL + `card/${rfid}/pair`,
+      body
+    );
+  }
+
+  public setZone(
+    rfid: string,
+    zone: MatZone | null
+  ): Observable<{ success: string }> {
+    const body = { zone };
+    return this.http.patch<{ success: string }>(
+      BACKEND_URL + `card/${rfid}/zone`,
       body
     );
   }

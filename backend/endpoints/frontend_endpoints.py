@@ -8,7 +8,18 @@ def get_current_board():
     return {"cards": card_repository.get_all_jsonable()}
 
 
-@current_app.patch("/card/<rfid>")
+@current_app.get("/card/<rfid>")
+def get_card(rfid: str):
+    try:
+        return {"card": card_repository.get_card(rfid).toJSON()}
+    except KeyError:
+        return {
+            "success": False,
+            "message": f"No card with rfid={rfid}",
+        }, 404
+
+
+@current_app.patch("/card/<rfid>/pair")
 def pair_card(rfid: str):
     data = request.json
     print(f"Patch for card RFID#{rfid}:", data)
@@ -41,4 +52,4 @@ def pair_card(rfid: str):
         return {
             "success": False,
             "message": f"No card with rfid={rfid}",
-        }, 400
+        }, 404

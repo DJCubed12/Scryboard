@@ -4,12 +4,7 @@
       <h2>Card's current data:</h2>
 
       <p>RFID: {{ card.rfid }}</p>
-      <p>
-        API ID: {{ card.api_id }}
-        <button [routerLink]="['/admin', 'pair', card.rfid]">
-          {{ card.api_id ? "Re-" : "" }}Pair
-        </button>
-      </p>
+      <p>API ID: {{ card.api_id }}</p>
       <p>Mat ID: {{ card.mat_id }}</p>
 
       <p>Zone: {{ card.zone }} <span *ngIf="card.zone === null">null</span></p>
@@ -28,6 +23,16 @@
 
     <div>
       <h2>Edit</h2>
+      <p>
+        <button [routerLink]="['/admin', 'pair', card.rfid]">
+          {{ card.api_id ? "Re-" : "" }}Pair
+        </button>
+      </p>
+
+      <div>
+        <input type="text" [placeholder]="card.zone" #zone />
+        <button (click)="setZone(zone.value)">Change zone</button>
+      </div>
     </div>
   </div>
 
