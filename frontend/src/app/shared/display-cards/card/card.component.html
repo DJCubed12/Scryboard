@@ -10,4 +10,17 @@
     </ng-template>
   </p>
   <p>Mat ID: {{ card.mat_id }}</p>
+
+  <p>Zone: {{ card.zone }} <span *ngIf="card.zone === null">null</span></p>
+  <p>Face up? {{ card.is_face_up }}</p>
+  <p>
+    Front image: {{ card.front_image }}
+    <span *ngIf="card.front_image === null">null</span>
+  </p>
+  <p>
+    Back image: {{ card.back_image }}
+    <span *ngIf="card.back_image === null">null</span>
+  </p>
+
+  <img *ngIf="card.front_image" [src]="card.front_image" />
 </div>

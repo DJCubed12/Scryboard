@@ -47,6 +47,7 @@ export class CardSearchComponent implements OnInit {
       }
     } catch (TypeError) {
       // Card response doesn't follow normal format
+      // TODO: try to get the image another way
     }
     return null;
   }
@@ -59,13 +60,15 @@ export class CardSearchComponent implements OnInit {
       console.error("Error: Can't find card's ID.");
     }
 
-    this.gameStateService.pairAPIId(this.rfid, card['id']).subscribe(
-      (resp) => {
-        console.log('Successfully updated API ID!');
-        this.router.navigate(['/admin']);
-      },
-      (err) =>
-        console.error(`Error updating API ID for card RFID=${this.rfid}`, err)
-    );
+    this.gameStateService
+      .pairAPIId(this.rfid, card['id'], this.getCardImage(card))
+      .subscribe(
+        (resp) => {
+          console.log('Successfully updated API ID!');
+          this.router.navigate(['/admin']);
+        },
+        (err) =>
+          console.error(`Error updating API ID for card RFID=${this.rfid}`, err)
+      );
   }
 }

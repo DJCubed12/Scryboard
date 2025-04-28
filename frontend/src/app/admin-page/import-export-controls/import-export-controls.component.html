@@ -1,0 +1,16 @@
+<div>
+  <div>
+    <input type="text" placeholder="Mat ID (leave blank for all)" #matIdInput />
+    <button (click)="export(matIdInput.value)">Export cards</button>
+  </div>
+
+  <div>
+    <input
+      type="file"
+      (change)="changeImportFile($event)"
+      placeholder="Upload file"
+      accept=".json"
+    />
+    <button (click)="import()">Import cards</button>
+  </div>
+</div>
