@@ -19,5 +19,9 @@ export class EditCardComponent {
 
   public ngOnInit(): void {
     this.rfid = this.route.snapshot.paramMap.get('rfid');
+    this.gameStateService.getCard(this.rfid!).subscribe(
+      (card) => (this.card = card),
+      (err) => console.error(err)
+    );
   }
 }

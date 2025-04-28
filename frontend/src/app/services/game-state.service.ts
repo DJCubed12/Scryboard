@@ -14,8 +14,14 @@ export class GameStateService {
 
   public getAllCards(): Observable<Card[]> {
     return this.http
-      .get<{ cards: Card[] }>(BACKEND_URL + '/cards')
+      .get<{ cards: Card[] }>(BACKEND_URL + 'cards')
       .pipe(map((msg: { cards: Card[] }) => msg.cards));
+  }
+
+  public getCard(rfid: string): Observable<Card> {
+    return this.http
+      .get<{ card: Card }>(BACKEND_URL + 'card/' + rfid)
+      .pipe(map((msg: { card: Card }) => msg.card));
   }
 
   public pairAPIId(

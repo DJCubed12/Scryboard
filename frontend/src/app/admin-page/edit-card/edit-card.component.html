@@ -1,6 +1,37 @@
 <div>
-  <p>edit-card works!</p>
-  <div *ngIf="rfid">
-    <p>Editing card {{ rfid }}</p>
+  <div *ngIf="card !== null; else cardNotFound" class="horizontal">
+    <div>
+      <h2>Card's current data:</h2>
+
+      <p>RFID: {{ card.rfid }}</p>
+      <p>
+        API ID: {{ card.api_id }}
+        <button [routerLink]="['/admin', 'pair', card.rfid]">
+          {{ card.api_id ? "Re-" : "" }}Pair
+        </button>
+      </p>
+      <p>Mat ID: {{ card.mat_id }}</p>
+
+      <p>Zone: {{ card.zone }} <span *ngIf="card.zone === null">null</span></p>
+      <p>Face up? {{ card.is_face_up }}</p>
+      <p>
+        Front image: {{ card.front_image }}
+        <span *ngIf="card.front_image === null">null</span>
+      </p>
+      <p>
+        Back image: {{ card.back_image }}
+        <span *ngIf="card.back_image === null">null</span>
+      </p>
+
+      <img *ngIf="card.front_image" [src]="card.front_image" />
+    </div>
+
+    <div>
+      <h2>Edit</h2>
+    </div>
   </div>
+
+  <ng-template #cardNotFound>
+    <p>No card with RFID {{ rfid }} found.</p>
+  </ng-template>
 </div>
