@@ -23,21 +23,11 @@ const routes: Routes = [
   },
   {
     path: 'online',
-    children: [
-      {
-        path: '',
-        component: OnlineGamesPageComponent,
-      },
-    ]
+    component: OnlineGamesPageComponent,
   },
   {
     path: 'local',
-    children: [
-      {
-        path: '',
-        component: LocalGamesPageComponent,
-      },
-    ]
+    component: LocalGamesPageComponent,
   },
   {
     // The default route
