@@ -6,6 +6,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { OnlineGamesPageComponent } from './online-games-page/online-games-page.component';
 import { LocalGamesPageComponent } from './local-games-page/local-games-page.component';
 import { CardSearchComponent } from './admin-page/card-search/card-search.component';
+import { EditCardComponent } from './admin-page/edit-card/edit-card.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: 'pair/:rfid',
         component: CardSearchComponent,
+      },
+      {
+        path: 'edit/:rfid',
+        component: EditCardComponent,
       },
     ],
   },
