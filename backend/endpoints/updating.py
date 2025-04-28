@@ -1,22 +1,9 @@
+"""Endpoints relating to changing cards."""
+
 from flask import current_app, request
 
 from repository import card_repository
-
-
-@current_app.get("/cards")
-def get_current_board():
-    return {"cards": card_repository.get_all_jsonable()}
-
-
-@current_app.get("/card/<rfid>")
-def get_card(rfid: str):
-    try:
-        return {"card": card_repository.get_card(rfid).toJSON()}
-    except KeyError:
-        return {
-            "success": False,
-            "message": f"No card with rfid={rfid}",
-        }, 404
+from card import MatZone
 
 
 @current_app.patch("/card/<rfid>/pair")
@@ -72,6 +59,34 @@ def flip_card(rfid: str):
             "success": True,
             "rfid": rfid,
             "is_face_up": to_face_up,
+        }
+    except KeyError as e:
+        return {
+            "success": False,
+            "message": f"Card with rfid={rfid} not found",
+        }, 404
+
+
+@current_app.patch("/card/<rfid>/zone")
+def set_zone(rfid: str):
+    data = request.json
+    try:
+        if data["zone"] is not None:
+            zone = MatZone(data["zone"])
+        else:
+            zone = None
+    except (KeyError, ValueError):
+        return {
+            "success": False,
+            "message": "zone field must be provided as either 'B', 'C', 'L', 'G', 'E' or null.",
+        }, 400
+
+    try:
+        card_repository.set_zone(rfid, zone)
+        return {
+            "success": True,
+            "rfid": rfid,
+            "zone": zone.value if zone is not None else None,
         }
     except KeyError as e:
         return {

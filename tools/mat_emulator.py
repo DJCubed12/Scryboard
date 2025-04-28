@@ -2,18 +2,21 @@ import requests, random
 from tkinter import *
 from tkinter import ttk
 
-backend_url = "http://localhost:5000/rfid"
+backend_url = "http://localhost:5000/card"
 mat_sent_RFID = dict()
 
+
 def send_rfid_post(matid, rfid):
-    rfid_object = {'mat_id': matid, 'rfid': rfid}
-    req = requests.post(backend_url, json = rfid_object)
+    rfid_object = {"mat_id": matid, "rfid": rfid}
+    req = requests.post(backend_url, json=rfid_object)
     print(req.text)
+
 
 def new_mat():
     matid = bytes.hex(random.getrandbits(64).to_bytes(8))
     mat_listbox.insert(END, matid)
     mat_sent_RFID[matid] = []
+
 
 def send_rand_rfid():
     selection = mat_listbox.curselection()
@@ -26,6 +29,7 @@ def send_rand_rfid():
     rfid_listbox.insert(END, rfid)
     send_rfid_post(matid, rfid)
 
+
 def resend_rfid():
     matsel = mat_listbox.curselection()
     rfidsel = rfid_listbox.curselection()
@@ -37,6 +41,7 @@ def resend_rfid():
     rfid = rfid_listbox.get(rfidindex)
     send_rfid_post(matid, rfid)
 
+
 def onselect_rfid(event):
     box = event.widget
     selection = box.curselection()
@@ -45,7 +50,8 @@ def onselect_rfid(event):
     else:
         btn_resend_rfid["state"] = NORMAL
 
-def onselect_mat(event): 
+
+def onselect_mat(event):
     box = event.widget
     selection = box.curselection()
     if not selection:
@@ -57,6 +63,7 @@ def onselect_mat(event):
     rfid_listbox.delete(0, END)
     for rfid in mat_sent_RFID[matid]:
         rfid_listbox.insert(END, rfid)
+
 
 root = Tk()
 frm = ttk.Frame(root, padding=10)
@@ -72,7 +79,9 @@ rfid_listbox = Listbox(frm, selectmode=SINGLE)
 rfid_listbox.grid(column=1, row=1, columnspan=2)
 rfid_listbox.bind("<<ListboxSelect>>", onselect_rfid)
 
-btn_new_rfid = Button(frm, text="Send Rand RFID", command=send_rand_rfid, state=DISABLED)
+btn_new_rfid = Button(
+    frm, text="Send Rand RFID", command=send_rand_rfid, state=DISABLED
+)
 btn_new_rfid.grid(column=1, row=0)
 
 btn_resend_rfid = Button(frm, text="Resend RFID", command=resend_rfid, state=DISABLED)
