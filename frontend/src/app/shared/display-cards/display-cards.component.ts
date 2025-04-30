@@ -10,6 +10,7 @@ import { GameStateService } from 'src/app/services/game-state.service';
 })
 export class DisplayCardsComponent {
   @Input() showUnpairedCards: boolean = false;
+  @Input() allowEdit: boolean = false;
 
   public cards: Card[] = [];
 

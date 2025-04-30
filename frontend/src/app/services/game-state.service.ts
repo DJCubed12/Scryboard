@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { map, Observable } from 'rxjs';
 
-import { Card } from '../models/card';
+import { Card, MatZone } from '../models/card';
 import { BACKEND_URL } from 'src/constants';
 
 @Injectable({
@@ -14,8 +14,14 @@ export class GameStateService {
 
   public getAllCards(): Observable<Card[]> {
     return this.http
-      .get<{ cards: Card[] }>(BACKEND_URL + '/cards')
+      .get<{ cards: Card[] }>(BACKEND_URL + 'cards')
       .pipe(map((msg: { cards: Card[] }) => msg.cards));
+  }
+
+  public getCard(rfid: string): Observable<Card> {
+    return this.http
+      .get<{ card: Card }>(BACKEND_URL + 'card/' + rfid)
+      .pipe(map((msg: { card: Card }) => msg.card));
   }
 
   public pairAPIId(
@@ -26,7 +32,29 @@ export class GameStateService {
   ): Observable<{ success: string }> {
     const body = { api_id, front_image, back_image };
     return this.http.patch<{ success: string }>(
-      BACKEND_URL + `/card/${rfid}`,
+      BACKEND_URL + `card/${rfid}/pair`,
+      body
+    );
+  }
+
+  public flipCard(
+    rfid: string,
+    to_face_up: boolean
+  ): Observable<{ success: string }> {
+    const body = { to_face_up };
+    return this.http.patch<{ success: string }>(
+      BACKEND_URL + `card/${rfid}/flip`,
+      body
+    );
+  }
+
+  public setZone(
+    rfid: string,
+    zone: MatZone | null
+  ): Observable<{ success: string }> {
+    const body = { zone };
+    return this.http.patch<{ success: string }>(
+      BACKEND_URL + `card/${rfid}/zone`,
       body
     );
   }

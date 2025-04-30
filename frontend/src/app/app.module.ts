@@ -18,6 +18,7 @@ import { CardSearchComponent } from './admin-page/card-search/card-search.compon
 import { DisplayCardsComponent } from './shared/display-cards/display-cards.component';
 import { CardComponent } from './shared/display-cards/card/card.component';
 import { ImportExportControlsComponent } from './admin-page/import-export-controls/import-export-controls.component';
+import { EditCardComponent } from './admin-page/edit-card/edit-card.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ImportExportControlsComponent } from './admin-page/import-export-contro
     DisplayCardsComponent,
     CardComponent,
     ImportExportControlsComponent,
+    EditCardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule],
   providers: [],

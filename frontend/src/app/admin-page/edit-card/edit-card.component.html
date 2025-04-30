@@ -1,0 +1,46 @@
+<div>
+  <div *ngIf="card !== null; else cardNotFound" class="horizontal">
+    <div>
+      <h2>Card's current data:</h2>
+
+      <p>RFID: {{ card.rfid }}</p>
+      <p>API ID: {{ card.api_id }}</p>
+      <p>Mat ID: {{ card.mat_id }}</p>
+
+      <p>Zone: {{ card.zone }} <span *ngIf="card.zone === null">null</span></p>
+      <p>Face up? {{ card.is_face_up }}</p>
+      <p>
+        Front image: {{ card.front_image }}
+        <span *ngIf="card.front_image === null">null</span>
+      </p>
+      <p>
+        Back image: {{ card.back_image }}
+        <span *ngIf="card.back_image === null">null</span>
+      </p>
+
+      <img *ngIf="card.front_image" [src]="card.front_image" />
+    </div>
+
+    <div>
+      <h2>Edit</h2>
+      <p>
+        <button [routerLink]="['/admin', 'pair', card.rfid]">
+          {{ card.api_id ? "Re-" : "" }}Pair
+        </button>
+      </p>
+
+      <div>
+        <input type="text" [placeholder]="card.zone" #zone />
+        <button (click)="setZone(zone.value)">Change zone</button>
+      </div>
+
+      <div>
+        <button (click)="flip()">Flip card</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #cardNotFound>
+    <p>No card with RFID {{ rfid }} found.</p>
+  </ng-template>
+</div>
