@@ -15,3 +15,9 @@ export interface Card {
   back_image: string | null;
   zone: MatZone | null;
 }
+
+export interface PairData {
+  api_id: string;
+  front_image: string;
+  back_image: string | null;
+}

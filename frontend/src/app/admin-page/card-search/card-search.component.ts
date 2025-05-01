@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PairData } from 'src/app/models/card';
 
 import { CardAPIService } from 'src/app/services/card-api.service';
 import { GameStateService } from 'src/app/services/game-state.service';
@@ -38,54 +39,29 @@ export class CardSearchComponent implements OnInit {
       }
     );
   }
-  public getCardImage(card: any): string | null {
-    try {
-      const image_url = card?.image_uris?.small;
-      if (image_url) {
-        return image_url;
-      }
-      else{
-        const new_url = card?.card_faces[0]?.image_uris?.small;
-        return new_url;
-      }
-    } catch (TypeError) {
-      // Card response doesn't follow normal format
-      // TODO: try to get the image another way
-    }
-    return null;
-  }
 
-  public pairAPIId(card: any) {
+  public pairAPIId(pairData: PairData) {
     if (this.rfid === null) {
       console.error('Error: Can not pair without an RFID (rfid is null)');
       return;
-    } else if (card['id'] === undefined) {
+    } else if (pairData.api_id === undefined) {
       console.error("Error: Can't find card's ID.");
     }
-    if (!card.card_faces)
-    {
-      this.gameStateService
-        .pairAPIId(this.rfid, card['id'], this.getCardImage(card))
-        .subscribe(
-          (resp) => {
-            console.log('Successfully updated API ID!');
-            this.router.navigate(['/admin']);
-          },
-          (err) =>
-            console.error(`Error updating API ID for card RFID=${this.rfid}`, err)
-        );
-    }
-    else{
-      this.gameStateService
-        .pairAPIId(this.rfid, card['id'], card.card_faces[0].image_uris.small, card.card_faces[1].image_uris.small)
-        .subscribe(
-          (resp) => {
-            console.log('Successfully updated API ID!');
-            this.router.navigate(['/admin']);
-          },
-          (err) =>
-            console.error(`Error updating API ID for card RFID=${this.rfid}`, err)
-        );
-    }
+
+    this.gameStateService
+      .pairAPIId(
+        this.rfid,
+        pairData.api_id,
+        pairData.front_image,
+        pairData.back_image
+      )
+      .subscribe(
+        (resp) => {
+          console.log('Successfully updated API ID!');
+          this.router.navigate(['/admin']);
+        },
+        (err) =>
+          console.error(`Error updating API ID for card RFID=${this.rfid}`, err)
+      );
   }
 }
