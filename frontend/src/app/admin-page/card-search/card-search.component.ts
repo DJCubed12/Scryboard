@@ -38,12 +38,15 @@ export class CardSearchComponent implements OnInit {
       }
     );
   }
-
   public getCardImage(card: any): string | null {
     try {
       const image_url = card?.image_uris?.small;
       if (image_url) {
         return image_url;
+      }
+      else{
+        const new_url = card?.card_faces[0]?.image_uris?.small;
+        return new_url;
       }
     } catch (TypeError) {
       // Card response doesn't follow normal format
@@ -59,16 +62,30 @@ export class CardSearchComponent implements OnInit {
     } else if (card['id'] === undefined) {
       console.error("Error: Can't find card's ID.");
     }
-
-    this.gameStateService
-      .pairAPIId(this.rfid, card['id'], this.getCardImage(card))
-      .subscribe(
-        (resp) => {
-          console.log('Successfully updated API ID!');
-          this.router.navigate(['/admin']);
-        },
-        (err) =>
-          console.error(`Error updating API ID for card RFID=${this.rfid}`, err)
-      );
+    if (!card.card_faces)
+    {
+      this.gameStateService
+        .pairAPIId(this.rfid, card['id'], this.getCardImage(card))
+        .subscribe(
+          (resp) => {
+            console.log('Successfully updated API ID!');
+            this.router.navigate(['/admin']);
+          },
+          (err) =>
+            console.error(`Error updating API ID for card RFID=${this.rfid}`, err)
+        );
+    }
+    else{
+      this.gameStateService
+        .pairAPIId(this.rfid, card['id'], card.card_faces[0].image_uris.small, card.card_faces[1].image_uris.small)
+        .subscribe(
+          (resp) => {
+            console.log('Successfully updated API ID!');
+            this.router.navigate(['/admin']);
+          },
+          (err) =>
+            console.error(`Error updating API ID for card RFID=${this.rfid}`, err)
+        );
+    }
   }
 }
