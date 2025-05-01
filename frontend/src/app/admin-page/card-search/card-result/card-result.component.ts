@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PairData } from 'src/app/models/card';
+import { DEFAULT_CARD_BACK_URL } from 'src/constants';
 
 @Component({
   selector: 'card-result',
@@ -53,7 +54,7 @@ export class CardResultComponent {
       this.pair.emit({
         api_id: this.card.id,
         front_image: this.card?.image_uris?.small,
-        back_image: null,
+        back_image: DEFAULT_CARD_BACK_URL,
       });
     }
   }
