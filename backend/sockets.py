@@ -25,5 +25,5 @@ def handle_connect_error(data):
     print(f"The connection failed! {data}")
 
 def sendCardUpdate(data): 
-    socketio.emit('cardUpdate', {'data': data})
+    socketio.emit('cardUpdate', data)
 
