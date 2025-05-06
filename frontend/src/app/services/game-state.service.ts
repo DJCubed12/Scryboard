@@ -1,42 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { map, Observable, pipe, Subject } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 
 import { Card, MatZone } from '../models/card';
 import { BACKEND_URL } from 'src/constants';
-
-import { io } from 'socket.io-client';
-import { AppComponent } from '../app.component';
-const socket = io(BACKEND_URL);
-
-socket.on('connect', () => {
-  console.log('Connected to server!');
-});
-
-socket.on('message', (msg: string) => {
-  console.log("Server msg: ", msg);
-});
-
-socket.on('cardUpdate', (cards: Card[]) => {
-  console.log("Handling cardUpdate!: ", cards);
-  //var cards = <Card[]>JSON.parse(data[0]);
-  //GameStateService.cards.next(cards);
-});
-
-socket.on("connect_error", (err) => {
-  // the reason of the error, for example "xhr poll error"
-  console.log(err.message);
-});
-
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameStateService {
   constructor(private readonly http: HttpClient) {}
-
-  static cards: Subject<Card[]> = new Subject<Card[]>();
 
   public getAllCards(): Observable<Card[]> {
     return this.http

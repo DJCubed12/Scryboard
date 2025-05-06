@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { Card } from 'src/app/models/card';
 import { GameStateService } from 'src/app/services/game-state.service';
+import { MatListenerService } from 'src/app/services/mat-listener.service';
 
 @Component({
   selector: 'display-cards',
@@ -14,9 +15,15 @@ export class DisplayCardsComponent {
 
   public cards: Card[] = [];
 
-  constructor(private readonly gameStateService: GameStateService) {
+  constructor(
+    private readonly gameStateService: GameStateService,
+    private readonly matListener: MatListenerService
+  ) {
     //this.refreshCardList();
-    GameStateService.cards.subscribe((cardList) => (this.cards = cardList));
+    this.matListener.getCards$().subscribe((cardList) => {
+      this.cards = [];
+      this.cards = cardList;
+    });
   }
 
   public refreshCardList() {
