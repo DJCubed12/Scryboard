@@ -15,7 +15,8 @@ export class DisplayCardsComponent {
   public cards: Card[] = [];
 
   constructor(private readonly gameStateService: GameStateService) {
-    this.refreshCardList();
+    //this.refreshCardList();
+    GameStateService.cards.subscribe((cardList) => (this.cards = cardList));
   }
 
   public refreshCardList() {
