@@ -5,7 +5,8 @@ from threading import Lock
 
 from card import Card, MatZone
 
-from sockets import sendCardUpdate
+from event_pusher import sendCardUpdate
+
 
 class CardRepository:
     """Singleton repository for mapping RFIDs to Card objects."""
@@ -28,6 +29,9 @@ class CardRepository:
 
             self._cards: Dict[int, Card] = {}
             """Dictionary with RFID index and Card values."""
+
+    def update_observers(self):
+        sendCardUpdate(self.get_all_jsonable())
 
     # ----- READ OPERATIONS -----
 
@@ -59,13 +63,13 @@ class CardRepository:
                 raise ValueError()
             else:
                 self._cards[rfid] = Card(rfid, mat_id, zone, api_id=api_id)
-                
-        sendCardUpdate(self.get_all_jsonable())
+        self.update_observers()
 
     def bulk_add(self, card_dict: dict[str, Card]) -> None:
         """card_dict is expected to be keyed by the card's RFID. Note: Will overwrite pre-existing cards with the same RFID."""
         with self._lock:
             self._cards.update(card_dict)
+        self.update_observers()
 
     # ----- DELETE OPERATIONS -----
 
@@ -73,10 +77,12 @@ class CardRepository:
         """Raises KeyError if no card with given rfid was found."""
         with self._lock:
             self._cards.pop(rfid)
+        self.update_observers()
 
     def clear(self) -> None:
         with self._lock:
             self._cards.clear()
+        self.update_observers()
 
     # ----- UPDATE OPERATIONS -----
 
@@ -84,11 +90,13 @@ class CardRepository:
         """Raises KeyError if no card with given rfid was found."""
         with self._lock:
             self._cards[rfid].zone = zone
+        self.update_observers()
 
     def set_API_ID(self, rfid: str, api_id: str) -> None:
         """Raises KeyError if no card with given rfid was found."""
         with self._lock:
             self._cards[rfid].api_id = api_id
+        self.update_observers()
 
     def set_images(
         self, rfid: str, front_image: str | None, back_image: str | None
@@ -99,11 +107,13 @@ class CardRepository:
                 self._cards[rfid].front_image = front_image
             if back_image:
                 self._cards[rfid].back_image = back_image
+        self.update_observers()
 
     def flip_card(self, rfid: str, to_face_up: bool):
         """Raises KeyError if no card with given rfid was found."""
         with self._lock:
             self._cards[rfid].is_face_up = to_face_up
+        self.update_observers()
 
 
 card_repository = CardRepository()

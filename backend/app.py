@@ -3,7 +3,7 @@
 from flask import Flask
 from flask_cors import CORS
 
-from sockets import socketio, socketio_bp
+from event_pusher import socketio, socketio_bp
 
 
 def create_app():
