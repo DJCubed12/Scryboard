@@ -5,6 +5,7 @@ from threading import Lock
 
 from card import Card, MatZone
 
+from sockets import sendCardUpdate
 
 class CardRepository:
     """Singleton repository for mapping RFIDs to Card objects."""
@@ -58,6 +59,8 @@ class CardRepository:
                 raise ValueError()
             else:
                 self._cards[rfid] = Card(rfid, mat_id, zone, api_id=api_id)
+                
+        sendCardUpdate(self.get_all_jsonable())
 
     def bulk_add(self, card_dict: dict[str, Card]) -> None:
         """card_dict is expected to be keyed by the card's RFID. Note: Will overwrite pre-existing cards with the same RFID."""
