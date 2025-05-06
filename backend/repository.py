@@ -48,7 +48,7 @@ class CardRepository:
         self,
         rfid: str,
         mat_id: str,
-        zone: MatZone | None = None,
+        zone: MatZone = MatZone.NOT_PRESENT,
         *,
         api_id: str | None = None
     ) -> None:
@@ -77,7 +77,7 @@ class CardRepository:
 
     # ----- UPDATE OPERATIONS -----
 
-    def set_zone(self, rfid: str, zone: MatZone | None):
+    def set_zone(self, rfid: str, zone: MatZone):
         """Raises KeyError if no card with given rfid was found."""
         with self._lock:
             self._cards[rfid].zone = zone

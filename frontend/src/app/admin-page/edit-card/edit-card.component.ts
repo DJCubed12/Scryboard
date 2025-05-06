@@ -30,14 +30,12 @@ export class EditCardComponent {
   }
 
   public setZone(zone: string) {
-    let matZone: MatZone | null = null;
     if (zone) {
-      matZone = zone as MatZone;
+      const matZone = zone as MatZone;
+      this.gameStateService
+        .setZone(this.rfid!, matZone)
+        .subscribe((msg) => this.reloadCard());
     }
-
-    this.gameStateService
-      .setZone(this.rfid!, matZone)
-      .subscribe((msg) => this.reloadCard());
   }
 
   public flip() {

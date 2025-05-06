@@ -71,14 +71,11 @@ def flip_card(rfid: str):
 def set_zone(rfid: str):
     data = request.json
     try:
-        if data["zone"] is not None:
-            zone = MatZone(data["zone"])
-        else:
-            zone = None
+        zone = MatZone(data["zone"])
     except (KeyError, ValueError):
         return {
             "success": False,
-            "message": "zone field must be provided as either 'B', 'C', 'L', 'G', 'E' or null.",
+            "message": "zone field must be provided as either 'B', 'C', 'L', 'G', 'E' or 'N.",
         }, 400
 
     try:
@@ -86,7 +83,7 @@ def set_zone(rfid: str):
         return {
             "success": True,
             "rfid": rfid,
-            "zone": zone.value if zone is not None else None,
+            "zone": zone.value,
         }
     except KeyError as e:
         return {
