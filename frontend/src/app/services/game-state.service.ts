@@ -48,10 +48,7 @@ export class GameStateService {
     );
   }
 
-  public setZone(
-    rfid: string,
-    zone: MatZone | null
-  ): Observable<{ success: string }> {
+  public setZone(rfid: string, zone: MatZone): Observable<{ success: string }> {
     const body = { zone };
     return this.http.patch<{ success: string }>(
       BACKEND_URL + `card/${rfid}/zone`,

@@ -4,6 +4,7 @@ export enum MatZone {
   LIBRARY = 'L',
   GRAVEYARD = 'G',
   EXILE = 'E',
+  NOT_PRESENT = 'N',
 }
 
 export interface Card {
@@ -13,7 +14,7 @@ export interface Card {
   is_face_up: boolean;
   front_image: string | null;
   back_image: string | null;
-  zone: MatZone | null;
+  zone: MatZone;
 }
 
 export interface PairData {
