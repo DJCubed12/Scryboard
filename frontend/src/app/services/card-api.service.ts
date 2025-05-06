@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EXTERNAL_API_URL } from 'src/constants';
+import { BACKEND_URL, EXTERNAL_API_URL } from 'src/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -16,5 +16,9 @@ export class CardAPIService {
         q: cardTitle,
       },
     });
+  }
+
+  public getDefaultCardBackURL(): string {
+    return BACKEND_URL + 'default-card-back';
   }
 }

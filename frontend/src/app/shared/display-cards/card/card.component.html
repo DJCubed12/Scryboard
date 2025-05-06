@@ -22,6 +22,7 @@
     <span *ngIf="card.back_image === null">null</span>
   </p>
 
-  <img *ngIf="card.is_face_up && card.front_image" [src]="card.front_image" />
-  <img *ngIf="!card.is_face_up && card.back_image" [src]="card.back_image" />
+  <div>
+    <img [src]="getCardImage()" width="200" />
+  </div>
 </div>
