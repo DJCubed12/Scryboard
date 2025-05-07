@@ -1,0 +1,16 @@
+<div>
+  <span>
+    <span *ngIf="getCardImage() !== null; else no_image"
+      ><img [src]="getCardImage()"
+    /></span>
+  </span>
+
+  <div>
+    <button (click)="emitPairEvent()">Pair</button>
+    <button *ngIf="isDoubleSided()" (click)="flip()">Flip</button>
+  </div>
+
+  <ng-template #no_image>
+    <p><i>No image for this card</i></p>
+  </ng-template>
+</div>

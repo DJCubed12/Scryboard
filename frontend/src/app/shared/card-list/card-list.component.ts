@@ -1,17 +1,19 @@
 import { Component, Input } from '@angular/core';
 
 import { Card } from 'src/app/models/card';
+import { CardAPIService } from 'src/app/services/card-api.service';
 import { GameStateService } from 'src/app/services/game-state.service';
 import { MatListenerService } from 'src/app/services/mat-listener.service';
 
 @Component({
-  selector: 'display-cards',
-  templateUrl: './display-cards.component.html',
-  styleUrls: ['./display-cards.component.scss'],
+  selector: 'card-list',
+  templateUrl: './card-list.component.html',
+  styleUrls: ['./card-list.component.scss'],
 })
-export class DisplayCardsComponent {
+export class CardListComponent {
   @Input() showUnpairedCards: boolean = false;
   @Input() allowEdit: boolean = false;
+  @Input() debug: boolean = false;
 
   public cards: Card[] = [];
 
