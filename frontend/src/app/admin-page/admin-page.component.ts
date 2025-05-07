@@ -9,4 +9,16 @@ import { GameStateService } from 'src/app/services/game-state.service';
   templateUrl: './admin-page.component.html',
   styleUrls: ['./admin-page.component.scss'],
 })
-export class AdminPageComponent {}
+export class AdminPageComponent {
+  public mats: string[] = [];
+
+  constructor(private readonly gameStateService: GameStateService) {
+    this.refreshMatList();
+  }
+
+  public refreshMatList() {
+    this.gameStateService
+      .getMats()
+      .subscribe((matList) => (this.mats = matList));
+  }
+}

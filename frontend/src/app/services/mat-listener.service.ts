@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 import { io } from 'socket.io-client';
 import { BACKEND_URL } from 'src/constants';
@@ -43,5 +43,13 @@ export class MatListenerService {
 
   public getCards$(): Observable<Card[]> {
     return this.cards;
+  }
+
+  public getCardsForMat$(matId: string): Observable<Card[]> {
+    return this.cards.pipe(
+      map((cardList: Card[]) =>
+        cardList.filter((card: Card) => card.mat_id === matId)
+      )
+    );
   }
 }

@@ -3,12 +3,10 @@
 
   <talk-to-backend />
 
-  <div>
-    Current mats are: <span *ngFor="let matId of mats">{{ matId }}, </span>
+  <div *ngFor="let matId of mats">
+    <card-list [matId]="matId" />
   </div>
 
-  <card-list />
-
-  <button (click)="refreshMatList()">Check for new mats</button>
-  <button routerLink="/admin">Go to admin page</button>
+  <div><button (click)="refreshMatList()">Check for new mats</button></div>
+  <div><button routerLink="/admin">Go to admin page</button></div>
 </div>

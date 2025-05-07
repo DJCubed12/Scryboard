@@ -1,6 +1,16 @@
 <div>
   <h2>This is the admin page</h2>
-  <card-list [showUnpairedCards]="true" [allowEdit]="true" [debug]="true" />
+
+  <div *ngFor="let matId of mats">
+    <card-list
+      [matId]="matId"
+      [showUnpairedCards]="true"
+      [allowEdit]="true"
+      [debug]="true"
+    />
+  </div>
+
+  <div><button (click)="refreshMatList()">Check for new mats</button></div>
   <import-export-controls />
   <div><button routerLink="/">Go back to the main page</button></div>
 </div>
