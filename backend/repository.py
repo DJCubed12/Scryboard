@@ -84,10 +84,16 @@ class CardRepository:
 
     def bulk_add(self, card_dict: dict[str, Card]) -> None:
         """card_dict is expected to be keyed by the card's RFID. Note: Will overwrite pre-existing cards with the same RFID."""
+        mat_list_change = False
         with self._lock:
             self._cards.update(card_dict)
-        self.update_mat_observers()
+            for rfid in card_dict:
+                if card_dict[rfid].mat_id not in self._mats:
+                    mat_list_change = True
+                    self._mats.add(card_dict[rfid].mat_id)
         self.update_card_observers()
+        if mat_list_change:
+            self.update_mat_observers()
 
     # ----- DELETE OPERATIONS -----
 
