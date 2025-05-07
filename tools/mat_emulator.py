@@ -19,7 +19,7 @@ def send_full_post(matid):
     json_object = []
     for zone in mats[matid]:
         for rfid in zone:
-            json_object += {"rfid": rfid, "mat_id": matid, "zone": zone}
+            json_object.append({'rfid': rfid, 'mat_id': matid, 'zone': ALL_ZONES[mats[matid].index(zone)][0]}) #[[rfid, matid, ALL_ZONES[mats[matid].index(zone)][0]]]
     req = requests.post(backend_replace_mat, json=json_object)
     print(req.text)
 
@@ -118,7 +118,7 @@ btn_new_rfid.grid(column=2, row=0)
 btn_rem_rfid = Button(frm, text="Rem RFID", command=remove_rfid, state=DISABLED)
 btn_rem_rfid.grid(column=3, row=0)
 
-btn_send_post = Button(frm, text="Send Mat RFIDs", command=send_post, state=DISABLED)
+btn_send_post = Button(frm, text="Send Mat RFIDs", command=send_post)
 btn_send_post.grid(column=2, row=2, columnspan=2)
 
 root.mainloop()
