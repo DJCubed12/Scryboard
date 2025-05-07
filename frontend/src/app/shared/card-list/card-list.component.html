@@ -7,6 +7,8 @@
         {{ c.api_id ? "Re-" : "" }}Pair
       </button>
 
+      <button (click)="flip(c)">Flip</button>
+
       <button [routerLink]="['/admin', 'edit', c.rfid]">Edit data</button>
     </div>
   </div>
