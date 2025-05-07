@@ -37,11 +37,12 @@ def post_rfid():
 def replace_mat(mat_id: str):
     """Adds or updates existing RFIDs in the database, then responds with the current card list."""
     new_cards = [card_obj for card_obj in request.json]
-    cards = card_repository.get_all_jsonable()
+    repo_cards = card_repository.get_all()
+    repo_rfids = [card.rfid for card in repo_cards]
 
     try:
         for card in new_cards:
-            if card['rfid'] in cards:
+            if card['rfid'] in repo_rfids:
                 card_repository.set_zone(card['rfid'], MatZone(card['zone']))
             else: 
                 card_repository.add_card(card['rfid'], card['mat_id'], zone=MatZone(card['zone']))
