@@ -32,7 +32,7 @@
       <card-pile [cards]="commandCards" />
     </div>
 
-    <div class="padded">
+    <div *ngIf="admin" class="padded">
       <h3>Not Present</h3>
       <card-pile [cards]="notPresentCards" />
     </div>
