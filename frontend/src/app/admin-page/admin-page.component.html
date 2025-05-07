@@ -2,11 +2,10 @@
   <h2>This is the admin page</h2>
 
   <div *ngFor="let matId of mats">
-    <card-list
+    <mat-display
       [matId]="matId"
       [showUnpairedCards]="true"
       [allowEdit]="true"
-      [debug]="true"
     />
   </div>
 

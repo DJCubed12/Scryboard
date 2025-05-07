@@ -1,0 +1,36 @@
+<div>
+  <h2>Mat #{{ matId }}</h2>
+
+  <card-list
+    [cards]="battlefieldCards"
+    [showUnpairedCards]="showUnpairedCards"
+    [allowEdit]="allowEdit"
+  />
+
+  <div class="horizontal">
+    <div>
+      <h3>Library</h3>
+      <card-pile [cards]="libraryCards" />
+    </div>
+
+    <div>
+      <h3>Graveyard</h3>
+      <card-pile [cards]="graveyardCards" />
+    </div>
+
+    <div>
+      <h3>Exile</h3>
+      <card-pile [cards]="exileCards" />
+    </div>
+
+    <div>
+      <h3>Command</h3>
+      <card-pile [cards]="commandCards" />
+    </div>
+
+    <div>
+      <h3>Not Present</h3>
+      <card-pile [cards]="notPresentCards" />
+    </div>
+  </div>
+</div>
