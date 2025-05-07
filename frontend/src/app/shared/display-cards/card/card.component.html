@@ -22,5 +22,7 @@
     <span *ngIf="card.back_image === null">null</span>
   </p>
 
-  <img *ngIf="card.front_image" [src]="card.front_image" />
+  <div>
+    <img [src]="getCardImage()" width="200" />
+  </div>
 </div>

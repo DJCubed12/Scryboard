@@ -2,8 +2,9 @@
 
 import json
 
-from flask import Response, current_app
+from flask import Response, current_app, send_file
 
+from constants import CARD_BACK_DEFAULT
 from repository import card_repository
 
 
@@ -50,3 +51,8 @@ def export_mat(mat_id: str):
         mimetype="application/json",
         headers={"Content-Disposition": "attachment;filename=scryboard-export.json"},
     )
+
+
+@current_app.get("/default-card-back")
+def get_default_card_back():
+    return send_file(CARD_BACK_DEFAULT, mimetype="image/jpg")
