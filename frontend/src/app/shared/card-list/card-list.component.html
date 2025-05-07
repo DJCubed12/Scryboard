@@ -3,7 +3,11 @@
 
   <div class="horizontal">
     <div class="padded" *ngFor="let c of cards">
-      <card [card]="c" *ngIf="showUnpairedCards || c.api_id !== null" />
+      <card
+        [card]="c"
+        *ngIf="showUnpairedCards || c.api_id !== null"
+        [debug]="debug"
+      />
 
       <div *ngIf="allowEdit">
         <button [routerLink]="['/admin', 'edit', c.rfid]">Edit data</button>

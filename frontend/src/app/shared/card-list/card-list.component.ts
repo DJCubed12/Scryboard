@@ -13,6 +13,7 @@ import { MatListenerService } from 'src/app/services/mat-listener.service';
 export class CardListComponent {
   @Input() showUnpairedCards: boolean = false;
   @Input() allowEdit: boolean = false;
+  @Input() debug: boolean = false;
 
   public cards: Card[] = [];
 
