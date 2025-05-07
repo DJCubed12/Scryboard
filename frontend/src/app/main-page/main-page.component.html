@@ -1,5 +1,6 @@
 <div>
   <h2>Main Page</h2>
-  <card-list />
-
+  <div *ngFor="let matId of mats">
+    <card-list [matId]="matId" />
+  </div>
 </div>

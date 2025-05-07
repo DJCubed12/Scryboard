@@ -4,7 +4,7 @@ from flask import current_app, request
 
 import json
 
-from repository import card_repository
+from repository import card_repository, MatZone
 from card_import_service import card_import_service
 from .reading import get_all_cards
 
@@ -32,6 +32,28 @@ def post_rfid():
             "message": f"Card with rfid={rfid} already added",
         }, 400
 
+
+@current_app.post("/cards/<mat_id>/replace")
+def replace_mat(mat_id: str):
+    """Adds or updates existing RFIDs in the database, then responds with the current card list."""
+    new_cards = [card_obj for card_obj in request.json]
+    repo_cards = card_repository.get_all()
+    repo_rfids = [card.rfid for card in repo_cards]
+
+    try:
+        for card in new_cards:
+            if card['rfid'] in repo_rfids:
+                card_repository.set_zone(card['rfid'], MatZone(card['zone']))
+            else: 
+                card_repository.add_card(card['rfid'], card['mat_id'], zone=MatZone(card['zone']))
+    except KeyError:
+        return {
+            "success": False,
+            "message": f"Test!",
+        }, 400
+    
+    return get_all_cards()
+    
 
 @current_app.post("/cards/import")
 def import_cards():
