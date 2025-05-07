@@ -21,6 +21,7 @@ import { EditCardComponent } from './admin-page/edit-card/edit-card.component';
 import { CardResultComponent } from './admin-page/card-search/card-result/card-result.component';
 import { CardListComponent } from './shared/card-list/card-list.component';
 import { CardPileComponent } from './shared/card-pile/card-pile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { CardPileComponent } from './shared/card-pile/card-pile.component';
     CardListComponent,
     CardPileComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
