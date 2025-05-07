@@ -1,11 +1,6 @@
 <div>
-  <h2>This is the main page</h2>
-
-  <talk-to-backend />
-
+  <h2>Main Page</h2>
   <div *ngFor="let matId of mats">
     <card-list [matId]="matId" />
   </div>
-
-  <div><button routerLink="/admin">Go to admin page</button></div>
 </div>
