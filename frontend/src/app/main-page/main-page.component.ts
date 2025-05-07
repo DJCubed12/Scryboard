@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GameStateService } from '../services/game-state.service';
+import { MatListenerService } from '../services/mat-listener.service';
 
 @Component({
   selector: 'main-page',
@@ -9,13 +9,7 @@ import { GameStateService } from '../services/game-state.service';
 export class MainPageComponent {
   public mats: string[] = [];
 
-  constructor(private readonly gameStateService: GameStateService) {
-    this.refreshMatList();
-  }
-
-  public refreshMatList() {
-    this.gameStateService
-      .getMats()
-      .subscribe((matList) => (this.mats = matList));
+  constructor(private readonly matListener: MatListenerService) {
+    this.matListener.getMats$().subscribe((matList) => (this.mats = matList));
   }
 }

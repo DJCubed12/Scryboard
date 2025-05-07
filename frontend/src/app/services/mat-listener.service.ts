@@ -11,6 +11,9 @@ import { GameStateService } from './game-state.service';
 })
 export class MatListenerService {
   private readonly socket = io(BACKEND_URL);
+  private readonly mats: BehaviorSubject<string[]> = new BehaviorSubject<
+    string[]
+  >([]);
   private readonly cards: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>(
     []
   );
@@ -35,10 +38,21 @@ export class MatListenerService {
       console.log(err.message);
     });
 
-    // Get current list and use as initial value
+    this.socket.on('matListUpdate', (matList: string[]) => {
+      this.mats.next(matList);
+    });
+
+    // Do normal HTTP requests to get initial values
+    this.gameStateService
+      .getMats()
+      .subscribe((matList) => this.mats.next(matList));
     this.gameStateService
       .getAllCards()
       .subscribe((cards) => this.cards.next(cards));
+  }
+
+  public getMats$(): Observable<string[]> {
+    return this.mats;
   }
 
   public getCards$(): Observable<Card[]> {
