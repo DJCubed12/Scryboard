@@ -10,6 +10,7 @@ import { CardAPIService } from 'src/app/services/card-api.service';
 })
 export class CardComponent {
   @Input() card!: Card;
+  @Input() debug: boolean = false;
 
   constructor(private readonly cardAPIService: CardAPIService) {}
 

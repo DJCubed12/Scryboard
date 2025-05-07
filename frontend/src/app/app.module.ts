@@ -15,7 +15,7 @@ import { OnlineGamesPageComponent } from './online-games-page/online-games-page.
 import { LocalGamesPageComponent } from './local-games-page/local-games-page.component';
 import { TalkToBackendComponent } from './talk-to-backend/talk-to-backend.component';
 import { CardSearchComponent } from './admin-page/card-search/card-search.component';
-import { CardComponent } from './shared/card-list/card/card.component';
+import { CardComponent } from './shared/card/card.component';
 import { ImportExportControlsComponent } from './admin-page/import-export-controls/import-export-controls.component';
 import { EditCardComponent } from './admin-page/edit-card/edit-card.component';
 import { CardResultComponent } from './admin-page/card-search/card-result/card-result.component';
