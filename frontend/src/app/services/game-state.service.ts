@@ -12,6 +12,12 @@ import { BACKEND_URL } from 'src/constants';
 export class GameStateService {
   constructor(private readonly http: HttpClient) {}
 
+  public getMats(): Observable<string[]> {
+    return this.http
+      .get<{ mat_ids: string[] }>(BACKEND_URL + 'mats')
+      .pipe(map((msg) => msg.mat_ids));
+  }
+
   public getAllCards(): Observable<Card[]> {
     return this.http
       .get<{ cards: Card[] }>(BACKEND_URL + 'cards')

@@ -2,7 +2,13 @@
   <h2>This is the main page</h2>
 
   <talk-to-backend />
+
+  <div>
+    Current mats are: <span *ngFor="let matId of mats">{{ matId }}, </span>
+  </div>
+
   <card-list />
 
+  <button (click)="refreshMatList()">Check for new mats</button>
   <button routerLink="/admin">Go to admin page</button>
 </div>
