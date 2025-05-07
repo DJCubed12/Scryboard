@@ -2,7 +2,10 @@
   <h2>This is the main page</h2>
 
   <talk-to-backend />
-  <card-list />
 
-  <button routerLink="/admin">Go to admin page</button>
+  <div *ngFor="let matId of mats">
+    <card-list [matId]="matId" />
+  </div>
+
+  <div><button routerLink="/admin">Go to admin page</button></div>
 </div>

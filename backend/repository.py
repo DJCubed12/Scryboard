@@ -5,7 +5,7 @@ from threading import Lock
 
 from card import Card, MatZone
 
-from event_pusher import sendCardUpdate
+from event_pusher import sendCardUpdate, sendMatUpdate
 
 
 class CardRepository:
@@ -27,11 +27,15 @@ class CardRepository:
                 return
             self._initialized = True
 
+            self._mats: set[str] = set()
             self._cards: Dict[int, Card] = {}
             """Dictionary with RFID index and Card values."""
 
-    def update_observers(self):
+    def update_card_observers(self):
         sendCardUpdate(self.get_all_jsonable())
+
+    def update_mat_observers(self):
+        sendMatUpdate(self.get_mats())
 
     # ----- READ OPERATIONS -----
 
@@ -47,6 +51,11 @@ class CardRepository:
         with self._lock:
             return [card.toJSON() for card in self._cards.values()]
 
+    def get_mats(self) -> list[str]:
+        """Get a list of all mat IDs."""
+        with self._lock:
+            return [mat for mat in self._mats]
+
     # ----- CREATE OPERATIONS -----
 
     def add_card(
@@ -58,31 +67,48 @@ class CardRepository:
         api_id: str | None = None
     ) -> None:
         """Raises ValueError if given RFID already exists."""
+        mat_list_change = False
+
         with self._lock:
             if rfid in self._cards:
                 raise ValueError()
             else:
                 self._cards[rfid] = Card(rfid, mat_id, zone, api_id=api_id)
-        self.update_observers()
+                if mat_id not in self._mats:
+                    mat_list_change = True
+                    self._mats.add(mat_id)
+
+        self.update_card_observers()
+        if mat_list_change:
+            self.update_mat_observers()
 
     def bulk_add(self, card_dict: dict[str, Card]) -> None:
         """card_dict is expected to be keyed by the card's RFID. Note: Will overwrite pre-existing cards with the same RFID."""
         with self._lock:
             self._cards.update(card_dict)
-        self.update_observers()
+        self.update_mat_observers()
+        self.update_card_observers()
 
     # ----- DELETE OPERATIONS -----
 
     def remove_card(self, rfid: str) -> bool:
         """Raises KeyError if no card with given rfid was found."""
+        mat_list_change = False
         with self._lock:
-            self._cards.pop(rfid)
-        self.update_observers()
+            removed_card = self._cards.pop(rfid)
+            if all(card.mat_id != removed_card.mat_id for card in self._cards.values()):
+                mat_list_change = True
+                self._mats.remove(removed_card.mat_id)
+
+        self.update_card_observers()
+        if mat_list_change:
+            self.update_mat_observers()
 
     def clear(self) -> None:
         with self._lock:
             self._cards.clear()
-        self.update_observers()
+        self.update_card_observers()
+        self.update_mat_observers()
 
     # ----- UPDATE OPERATIONS -----
 
@@ -90,13 +116,13 @@ class CardRepository:
         """Raises KeyError if no card with given rfid was found."""
         with self._lock:
             self._cards[rfid].zone = zone
-        self.update_observers()
+        self.update_card_observers()
 
     def set_API_ID(self, rfid: str, api_id: str) -> None:
         """Raises KeyError if no card with given rfid was found."""
         with self._lock:
             self._cards[rfid].api_id = api_id
-        self.update_observers()
+        self.update_card_observers()
 
     def set_images(
         self, rfid: str, front_image: str | None, back_image: str | None
@@ -107,13 +133,13 @@ class CardRepository:
                 self._cards[rfid].front_image = front_image
             if back_image:
                 self._cards[rfid].back_image = back_image
-        self.update_observers()
+        self.update_card_observers()
 
     def flip_card(self, rfid: str, to_face_up: bool):
         """Raises KeyError if no card with given rfid was found."""
         with self._lock:
             self._cards[rfid].is_face_up = to_face_up
-        self.update_observers()
+        self.update_card_observers()
 
 
 card_repository = CardRepository()
