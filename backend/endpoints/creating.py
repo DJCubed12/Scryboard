@@ -33,6 +33,17 @@ def post_rfid():
         }, 400
 
 
+@current_app.post("/cards/<mat_id>/replace")
+def replace_mat(mat_id: str):
+    new = [card for card in request.json]
+    cards = card_repository.get_all_jsonable()
+
+    for card in new:
+        if card['rfid'] in cards:
+            card_repository.set_zone(card['rfid'], card['zone'])
+        else: 
+            card_repository.add_card(card['rfid'], card['mat_id'], zone=str(card['zone'])[0])
+
 @current_app.post("/cards/import")
 def import_cards():
     """Imports cards from the 'importFile' file in post form data, then responds with the current card list."""
