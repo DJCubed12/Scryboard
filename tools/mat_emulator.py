@@ -30,29 +30,41 @@ def new_mat():
     mats[matid] = [[] for zone in ALL_ZONES]
 
 
+def get_zone_rfid_string(zone_index, rfid):
+    return f"{ALL_ZONES[zone_index][0]}: {rfid}"
+
+
+def strip_zone_string(zone_rfid_string):
+    return zone_rfid_string.split(": ")[1]
+
+
 def add_rand_rfid():
+    add_rfid(bytes.hex(random.getrandbits(64).to_bytes(8)))
+    refresh_rfid()
+
+
+def add_rfid(rfid):
     matsel = mat_listbox.curselection()
-    zonesel = zone_listbox.curselection()
-    if not matsel or not zonesel:
+    if not matsel:
         return
     matid = mat_listbox.get(matsel[0])
-    zone = zone_listbox.get(zonesel[0])
-    rfid = bytes.hex(random.getrandbits(64).to_bytes(8))
-    mats[matid][ALL_ZONES.index(zone)].append(rfid)
-    rfid_listbox.insert(END, rfid)
+    zone = val_zone_index.get()
+    mats[matid][zone].append(rfid)
 
 
 def remove_rfid():
     matsel = mat_listbox.curselection()
-    zonesel = zone_listbox.curselection()
     rfidsel = rfid_listbox.curselection()
-    if not matsel or not zonesel or not rfidsel:
+    if not matsel or not rfidsel:
         return
     matid = mat_listbox.get(matsel[0])
-    zone = zone_listbox.get(zonesel[0])
-    rfid = rfid_listbox.get(rfidsel[0])
-    mats[matid][ALL_ZONES.index(zone)].remove(rfid)
-    rfid_listbox.delete(rfidsel)
+    for rfid in rfidsel: 
+        rfid_to_remove = strip_zone_string(rfid_listbox.get(rfid))
+        for zone in range(len(ALL_ZONES)):
+            if rfid_to_remove in mats[matid][zone]:
+                mats[matid][zone].remove(rfid_to_remove)
+    for index, rfid in enumerate(rfidsel):
+        rfid_listbox.delete(rfid - index)
     btn_rem_rfid["state"] = DISABLED
 
 
@@ -74,20 +86,36 @@ def onselect_rfid(event):
 
 def refresh_rfid():
     matsel = mat_listbox.curselection()
-    zonesel = zone_listbox.curselection()
-    if not matsel or not zonesel:
+    if not matsel:
         return
     matid = mat_listbox.get(matsel[0])
-    zone = zone_listbox.get(zonesel[0])
     rfid_listbox.delete(0, END)
-    for rfid in mats[matid][ALL_ZONES.index(zone)]:
-        rfid_listbox.insert(END, rfid)
+    for zone_index, zone in enumerate(mats[matid]):
+        for rfid in zone:
+            rfid_listbox.insert(END, get_zone_rfid_string(zone_index, rfid))
 
 def onselect_zone(event):
     refresh_rfid()
     
 def onselect_mat(event):
     btn_new_rfid["state"] = NORMAL
+    refresh_rfid()
+
+def zone_change():
+    matsel = mat_listbox.curselection()
+    rfidsel = rfid_listbox.curselection()
+    if not matsel or not rfidsel:
+        return
+    matid = mat_listbox.get(matsel[0])
+    rfid_to_move = []
+    for rfid in rfidsel: 
+        rfid_to_remove = strip_zone_string(rfid_listbox.get(rfid))
+        rfid_to_move.append(rfid_to_remove)
+        for zone in range(len(ALL_ZONES)):
+            if rfid_to_remove in mats[matid][zone]:
+                mats[matid][zone].remove(rfid_to_remove)
+    for rfid in rfid_to_move:
+        add_rfid(rfid)
     refresh_rfid()
 
 
@@ -101,14 +129,7 @@ mat_listbox = Listbox(frm, selectmode=SINGLE, exportselection=False)
 mat_listbox.grid(column=0, row=1)
 mat_listbox.bind("<<ListboxSelect>>", onselect_mat)
 
-zone_listbox = Listbox(frm, selectmode=SINGLE, exportselection=False)
-zone_listbox.grid(column=1, row=1)
-zone_listbox.bind("<<ListboxSelect>>", onselect_zone)
-for zone in ALL_ZONES:
-    zone_listbox.insert(END, zone)
-zone_listbox.select_set(0)
-
-rfid_listbox = Listbox(frm, selectmode=SINGLE)
+rfid_listbox = Listbox(frm, selectmode=MULTIPLE)
 rfid_listbox.grid(column=2, row=1, columnspan=2)
 rfid_listbox.bind("<<ListboxSelect>>", onselect_rfid)
 
@@ -120,5 +141,15 @@ btn_rem_rfid.grid(column=3, row=0)
 
 btn_send_post = Button(frm, text="Send Mat RFIDs", command=send_post)
 btn_send_post.grid(column=2, row=2, columnspan=2)
+
+val_zone_index = IntVar(root, 0)
+rdo_zones = []
+rdo_frm = ttk.Frame(frm, padding=10)
+rdo_frm.grid(column=1, row=1)
+
+for index, zone in enumerate(ALL_ZONES):
+    rdo_zones.append(Radiobutton(rdo_frm, text=zone, variable=val_zone_index, value=index, command=zone_change))
+    rdo_zones[index].grid(column=0, row=index, sticky='w')
+
 
 root.mainloop()
