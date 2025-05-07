@@ -47,6 +47,15 @@ class CardRepository:
         with self._lock:
             return [card.toJSON() for card in self._cards.values()]
 
+    def get_mats(self) -> list[str]:
+        """Get a list of all mat IDs."""
+        mats = []
+        with self._lock:
+            for card in self._cards.values():
+                if card.mat_id not in mats:
+                    mats.append(card.mat_id)
+        return mats
+
     # ----- CREATE OPERATIONS -----
 
     def add_card(
