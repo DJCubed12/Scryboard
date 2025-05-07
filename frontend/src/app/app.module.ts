@@ -22,6 +22,14 @@ import { CardResultComponent } from './admin-page/card-search/card-result/card-r
 import { CardListComponent } from './shared/card-list/card-list.component';
 import { CardPileComponent } from './shared/card-pile/card-pile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -39,7 +47,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CardListComponent,
     CardPileComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule, BrowserAnimationsModule],
+  imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule, BrowserAnimationsModule, MatButtonModule, MatDividerModule, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule],
   providers: [],
   bootstrap: [AppComponent],
 })

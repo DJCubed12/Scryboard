@@ -2,15 +2,19 @@
   <h2>Choose card to pair with RFID {{ rfid }}</h2>
 
   <div>
-    <input type="text" placeholder="Card Name" #title />
-    <button (click)="searchByTitle(title.value.trim())">Search</button>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Card Name" #title>
+      </mat-form-field>
+      <button mat-raised-button (click)="searchByTitle(title.value.trim())">Search</button>
+    </form>   
   </div>
-
+  
   <div>
     <table>
       <tr>
         <td *ngFor="let card of cards.slice(0, 12); let i = index">
-          <h5>{{ card["name"] }}</h5>
+          <span class = "card_name">{{ card["name"] }}</span>
         </td>
       </tr>
       <tr>
@@ -20,7 +24,7 @@
       </tr>
       <tr>
         <td *ngFor="let card of cards.slice(12, 24); let i = index">
-          <h5 *ngIf="card">{{ card["name"] }}</h5>
+          <span class = "card_name">{{ card["name"] }}</span>
         </td>
       </tr>
       <tr>

@@ -6,8 +6,8 @@
   </span>
 
   <div>
-    <button (click)="emitPairEvent()">Pair</button>
-    <button *ngIf="isDoubleSided()" (click)="flip()">Flip</button>
+    <button mat-raised-button class = "image_Buttons" (click)="emitPairEvent()">Pair</button>
+    <button mat-raised-button class = "image_Buttons" *ngIf="isDoubleSided()" (click)="flip()">Flip</button>
   </div>
 
   <ng-template #no_image>
