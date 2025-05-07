@@ -18,28 +18,29 @@ import { MatListenerService } from 'src/app/services/mat-listener.service';
 })
 export class MatDisplayComponent implements OnInit, OnChanges {
   @Input() matId: string | null = null;
-  @Input() showUnpairedCards: boolean = false;
-  @Input() allowEdit: boolean = false;
+  /** This enables card edits, (re)pairing, and showing unpaired cards */
+  @Input() admin: boolean = false;
 
-  public cards: Card[] = [];
+  public pairedCards: Card[] = [];
+  public unpairedCards: Card[] = [];
 
   public get battlefieldCards(): Card[] {
-    return this.cards.filter((c) => c.zone === MatZone.BATTLEFIELD);
+    return this.pairedCards.filter((c) => c.zone === MatZone.BATTLEFIELD);
   }
   public get commandCards(): Card[] {
-    return this.cards.filter((c) => c.zone === MatZone.COMMAND);
+    return this.pairedCards.filter((c) => c.zone === MatZone.COMMAND);
   }
   public get exileCards(): Card[] {
-    return this.cards.filter((c) => c.zone === MatZone.EXILE);
+    return this.pairedCards.filter((c) => c.zone === MatZone.EXILE);
   }
   public get graveyardCards(): Card[] {
-    return this.cards.filter((c) => c.zone === MatZone.GRAVEYARD);
+    return this.pairedCards.filter((c) => c.zone === MatZone.GRAVEYARD);
   }
   public get libraryCards(): Card[] {
-    return this.cards.filter((c) => c.zone === MatZone.LIBRARY);
+    return this.pairedCards.filter((c) => c.zone === MatZone.LIBRARY);
   }
   public get notPresentCards(): Card[] {
-    return this.cards.filter((c) => c.zone === MatZone.NOT_PRESENT);
+    return this.pairedCards.filter((c) => c.zone === MatZone.NOT_PRESENT);
   }
 
   private cardsSubscription: Subscription | null = null;
@@ -59,22 +60,16 @@ export class MatDisplayComponent implements OnInit, OnChanges {
     }
   }
 
-  public refreshCardList() {
-    this.gameStateService
-      .getAllCards()
-      .subscribe((cardList) => (this.cards = cardList));
-  }
-
   private resetCardsSubscription(matId: string | null) {
     this.cardsSubscription?.unsubscribe();
+    let cards$ = this.matListener.getCards$();
     if (matId) {
-      this.cardsSubscription = this.matListener
-        .getCardsForMat$(matId)
-        .subscribe((cardList) => (this.cards = cardList));
-    } else {
-      this.cardsSubscription = this.matListener
-        .getCards$()
-        .subscribe((cardList) => (this.cards = cardList));
+      cards$ = this.matListener.getCardsForMat$(matId);
     }
+
+    this.cardsSubscription = cards$.subscribe((cardList) => {
+      this.pairedCards = cardList.filter((c) => c.api_id !== null);
+      this.unpairedCards = cardList.filter((c) => c.api_id === null);
+    });
   }
 }

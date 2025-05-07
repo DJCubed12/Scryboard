@@ -1,11 +1,15 @@
 <div>
   <h2>Mat #{{ matId }}</h2>
 
-  <card-list
-    [cards]="battlefieldCards"
-    [showUnpairedCards]="showUnpairedCards"
-    [allowEdit]="allowEdit"
-  />
+  <div *ngIf="admin && unpairedCards.length > 0">
+    <h3>Unpaired Cards</h3>
+    <card-list [cards]="unpairedCards" [allowEdit]="admin" />
+  </div>
+
+  <div>
+    <h3>Battlefield</h3>
+    <card-list [cards]="battlefieldCards" [allowEdit]="admin" />
+  </div>
 
   <div class="horizontal">
     <div>

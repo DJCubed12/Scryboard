@@ -9,7 +9,6 @@ import { Card } from 'src/app/models/card';
 })
 export class CardListComponent {
   @Input() cards: Card[] = [];
-  @Input() showUnpairedCards: boolean = false;
   @Input() allowEdit: boolean = false;
   @Input() debug: boolean = false;
 }

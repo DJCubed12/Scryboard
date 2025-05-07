@@ -2,11 +2,7 @@
   <h2>This is the admin page</h2>
 
   <div *ngFor="let matId of mats">
-    <mat-display
-      [matId]="matId"
-      [showUnpairedCards]="true"
-      [allowEdit]="true"
-    />
+    <mat-display [matId]="matId" [admin]="true" />
   </div>
 
   <import-export-controls />
