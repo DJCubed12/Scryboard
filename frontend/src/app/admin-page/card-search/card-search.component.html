@@ -4,63 +4,56 @@
   <div>
     <form class="example-form">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Card Name" #title>
+        <input matInput placeholder="Card Name" #title (keyup.enter)="searchByTitle(title.value.trim())">
       </mat-form-field>
-      <button mat-raised-button class = "card_name" (click)="searchByTitle(title.value.trim())">Search</button>
+      <!-- <button mat-raised-button class = "card_name" (click)="searchByTitle(title.value.trim())">Search</button> -->
     </form>   
   </div>
 
-  <section>
-    <div class = "row_Display">
-
-    </div>
-  </section>
+  
 
   <div>
     <table>
-      <tr>
+      <!-- <tr>
         <td *ngFor="let card of cards.slice(0, 12)">
           <span class = "card_name">{{ card["name"] }}</span>
         </td>
-      </tr>
+      </tr> -->
       <tr>
         <td *ngFor="let card of cards.slice(0, 12); let i = index">
           <card-result [card]="card" (pair)="pairAPIId($event)" />
         </td>
       </tr>
-      <tr>
+      <!-- <tr>
         <td *ngFor="let card of cards.slice(12, 24); let i = index">
           <span class = "card_name">{{ card["name"] }}</span>
         </td>
-      </tr>
+      </tr> -->
       <tr>
         <td *ngFor="let card of cards.slice(12, 24); let i = index">
           <card-result [card]="card" (pair)="pairAPIId($event)" />
         </td>
       </tr>
-      <!--<tr>
+      <!-- <tr>
         <td *ngFor="let card of cards.slice(24, 36); let i = index">
           <h5 *ngIf="getCardImage(card)">{{ card["name"] }} </h5>
         </td>
-      </tr>
+      </tr> -->
       <tr>
         <td *ngFor="let card of cards.slice(24, 36); let i = index">
-          <span *ngIf="getCardImage(card) !== null; else no_image">
-            <img [src]="getCardImage(card)" />
-          </span>
-          <button (click)="pairAPIId(card)">Pair</button>
+          <card-result [card]="card" (pair)="pairAPIId($event)" />
         </td>
-      </tr>-->
+      </tr>
     </table>
 
     <ng-template #break>
       <p><i>Nothing is meant to be here</i></p>
     </ng-template>
   </div>
-
+<!-- 
   <h2>The raw JSON response</h2>
 
   <div>
     <pre>{{ results | json }}</pre>
   </div>
-</div>
+</div> -->
