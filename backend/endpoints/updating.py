@@ -69,6 +69,7 @@ def flip_card(rfid: str):
 
 @current_app.patch("/card/<rfid>/zone")
 def set_zone(rfid: str):
+    """Change the zone of the card. Sets is_face_up if it is a zone that requires it (Graveyard & Exile are face up for example)."""
     data = request.json
     try:
         zone = MatZone(data["zone"])

@@ -41,7 +41,7 @@ class Card:
         self.api_id: str | None = api_id
         """None if the frontend hasn't provided an API ID yet"""
 
-        self.is_face_up = False
+        self.is_face_up = True
         self.front_image = None
         self.back_image = None
 
