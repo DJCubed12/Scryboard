@@ -1,5 +1,7 @@
 .horizontal {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .padded {

@@ -1,5 +1,11 @@
+.board {
+  background-color: #F0F1EB;
+}
+
 .horizontal {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .padded {

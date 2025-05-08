@@ -1,10 +1,11 @@
 .link{
-    margin-left: 40px;
     text-decoration: none;
     color: white;
+    margin-left: 40px;
 }
 
-.first_link{
-    text-decoration: none;
-    color: white;
+.header_box{
+    display: flex;
+    align-items: center;
+    justify-content: left;
 }
