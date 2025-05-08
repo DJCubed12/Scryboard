@@ -21,4 +21,8 @@ export class CardAPIService {
   public getDefaultCardBackURL(): string {
     return BACKEND_URL + 'default-card-back';
   }
+
+  public getEmptyStackPlaceholderURL(): string {
+    return BACKEND_URL + 'empty-stack-placeholder';
+  }
 }

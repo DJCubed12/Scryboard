@@ -1,6 +1,10 @@
 <div>
-  <card *ngIf="cards.length" [card]="cards[0]" />
+  <card *ngIf="cards.length; else placeholder" [card]="cards[0]" />
   <!-- <div><button (click)="debugPrint()">Print cards in console</button></div> -->
+  <ng-template #placeholder>
+    <img [src]="placeholderImgSrc" width="200" />
+  </ng-template>
+
   <p>
     <i>({{ cards.length }} cards)</i>
   </p>

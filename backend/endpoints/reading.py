@@ -4,7 +4,7 @@ import json
 
 from flask import Response, current_app, send_file
 
-from constants import CARD_BACK_DEFAULT
+from constants import CARD_BACK_DEFAULT, EMPTY_STACK_PLACEHOLDER
 from repository import card_repository
 
 
@@ -61,3 +61,8 @@ def export_mat(mat_id: str):
 @current_app.get("/default-card-back")
 def get_default_card_back():
     return send_file(CARD_BACK_DEFAULT, mimetype="image/jpg")
+
+
+@current_app.get("/empty-stack-placeholder")
+def get_empty_stack_placeholder():
+    return send_file(EMPTY_STACK_PLACEHOLDER, mimetype="image/jpg")
