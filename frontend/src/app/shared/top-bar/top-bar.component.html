@@ -1,3 +1,20 @@
 <div>
-	<h1><a routerLink="/" class = "link">Scrymat</a><a routerLink="/admin" class = "link" >Admin</a><!--<a routerLink="/online" class = "link" >Online Games</a><a routerLink="/local" class = "link" >Local Games</a>--></h1>
+  <h1>
+    <u *ngIf="onMainPage; else scrymatLink">
+      <ng-container *ngTemplateOutlet="scrymatLink" />
+    </u>
+
+    <u *ngIf="!onMainPage; else adminLink">
+      <ng-container *ngTemplateOutlet="adminLink" />
+    </u>
+
+    <ng-template #scrymatLink>
+      <a routerLink="/" class="link">Scrymat</a>
+    </ng-template>
+    <ng-template #adminLink>
+      <a routerLink="/admin" class="link">Admin</a>
+    </ng-template>
+
+    <!--<a routerLink="/online" class = "link" >Online Games</a><a routerLink="/local" class = "link" >Local Games</a>-->
+  </h1>
 </div>
