@@ -8,6 +8,11 @@ from constants import CARD_BACK_DEFAULT
 from repository import card_repository
 
 
+@current_app.get("/mats")
+def get_mat_ids():
+    return {"mat_ids": card_repository.get_mats()}
+
+
 @current_app.get("/cards")
 def get_all_cards():
     return {"cards": card_repository.get_all_jsonable()}

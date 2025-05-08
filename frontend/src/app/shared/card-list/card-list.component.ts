@@ -1,9 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Card } from 'src/app/models/card';
-import { CardAPIService } from 'src/app/services/card-api.service';
 import { GameStateService } from 'src/app/services/game-state.service';
-import { MatListenerService } from 'src/app/services/mat-listener.service';
 
 @Component({
   selector: 'card-list',
@@ -11,26 +9,15 @@ import { MatListenerService } from 'src/app/services/mat-listener.service';
   styleUrls: ['./card-list.component.scss'],
 })
 export class CardListComponent {
-  @Input() showUnpairedCards: boolean = false;
+  @Input() cards: Card[] = [];
   @Input() allowEdit: boolean = false;
   @Input() debug: boolean = false;
 
-  public cards: Card[] = [];
+  constructor(private readonly gameStateService: GameStateService) {}
 
-  constructor(
-    private readonly gameStateService: GameStateService,
-    private readonly matListener: MatListenerService
-  ) {
-    //this.refreshCardList();
-    this.matListener.getCards$().subscribe((cardList) => {
-      this.cards = [];
-      this.cards = cardList;
-    });
-  }
-
-  public refreshCardList() {
-    this.gameStateService
-      .getAllCards()
-      .subscribe((cardList) => (this.cards = cardList));
+  public flip(card: Card) {
+    if (this.allowEdit) {
+      this.gameStateService.flipCard(card.rfid, !card.is_face_up).subscribe();
+    }
   }
 }

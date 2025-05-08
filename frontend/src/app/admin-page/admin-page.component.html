@@ -1,6 +1,13 @@
 <div>
   <h2>This is the admin page</h2>
-  <card-list [showUnpairedCards]="true" [allowEdit]="true" [debug]="true" />
+
+  <div *ngFor="let matId of mats; index as i">
+    <mat-display
+      [matId]="matId"
+      [admin]="true"
+      playerName="Player {{ i + 1 }}"
+    />
+  </div>
+
   <import-export-controls />
-  <div><button routerLink="/">Go back to the main page</button></div>
 </div>

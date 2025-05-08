@@ -31,3 +31,7 @@ def handle_connect_error(data):
 
 def sendCardUpdate(data):
     socketio.emit("cardUpdate", data)
+
+
+def sendMatUpdate(matList: list[str]):
+    socketio.emit("matListUpdate", matList)

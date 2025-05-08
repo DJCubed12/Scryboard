@@ -1,4 +1,7 @@
 <div>
-  <p>This is a card pile</p>
-  <p>This component is for the Graveyard, Library, Exile, etc.</p>
+  <card *ngIf="cards.length" [card]="cards[0]" />
+  <div><button (click)="debugPrint()">Print cards in console</button></div>
+  <p>
+    <i>({{ cards.length }} cards)</i>
+  </p>
 </div>

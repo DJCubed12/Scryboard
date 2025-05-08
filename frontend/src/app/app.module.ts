@@ -31,6 +31,7 @@ import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDisplayComponent } from './shared/mat-display/mat-display.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { MatSortModule } from '@angular/material/sort';
     CardResultComponent,
     CardListComponent,
     CardPileComponent,
+    MatDisplayComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule, BrowserAnimationsModule, MatButtonModule, MatDividerModule, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule],
   providers: [],

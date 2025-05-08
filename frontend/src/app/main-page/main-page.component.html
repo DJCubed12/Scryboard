@@ -1,8 +1,6 @@
 <div>
-  <h2>This is the main page</h2>
-
-  <talk-to-backend />
-  <card-list />
-
-  <button routerLink="/admin">Go to admin page</button>
+  <h2>Main Page</h2>
+  <div *ngFor="let matId of mats; index as i">
+    <mat-display [matId]="matId" playerName="Player {{ i + 1 }}" />
+  </div>
 </div>
