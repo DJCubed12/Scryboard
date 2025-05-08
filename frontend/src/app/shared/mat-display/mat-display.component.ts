@@ -8,6 +8,7 @@ import {
 import { Subscription } from 'rxjs';
 
 import { Card, MatZone } from 'src/app/models/card';
+import { CardAPIService } from 'src/app/services/card-api.service';
 import { GameStateService } from 'src/app/services/game-state.service';
 import { MatListenerService } from 'src/app/services/mat-listener.service';
 
@@ -22,6 +23,8 @@ export class MatDisplayComponent implements OnInit, OnChanges {
   @Input() admin: boolean = false;
   /** Optional name for the header. Uses matId if null. */
   @Input() playerName: string | null = null;
+
+  public readonly placeholderImgSrc: string;
 
   public pairedCards: Card[] = [];
   public unpairedCards: Card[] = [];
@@ -48,9 +51,11 @@ export class MatDisplayComponent implements OnInit, OnChanges {
   private cardsSubscription: Subscription | null = null;
 
   constructor(
-    private readonly gameStateService: GameStateService,
+    private readonly cardAPIService: CardAPIService,
     private readonly matListener: MatListenerService
-  ) {}
+  ) {
+    this.placeholderImgSrc = this.cardAPIService.getEmptyStackPlaceholderURL();
+  }
 
   public ngOnInit(): void {
     this.resetCardsSubscription(this.matId);

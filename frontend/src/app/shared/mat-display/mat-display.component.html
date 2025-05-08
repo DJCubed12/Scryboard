@@ -10,7 +10,15 @@
   <div class="horizontal">
     <div class="padded">
       <h3 justify-content="Center">Battlefield</h3>
-      <card-list [cards]="battlefieldCards" [allowEdit]="admin" />
+      <card-list
+        *ngIf="battlefieldCards.length; else placeholderCard"
+        [cards]="battlefieldCards"
+        [allowEdit]="admin"
+      />
+
+      <ng-template #placeholderCard>
+        <img [src]="placeholderImgSrc" width="200" />
+      </ng-template>
     </div>
 
     <div class="padded">
@@ -19,8 +27,8 @@
     </div>
 
     <div class="padded">
-       <h3>Graveyard</h3>
-       <card-pile [cards]="graveyardCards" />
+      <h3>Graveyard</h3>
+      <card-pile [cards]="graveyardCards" />
     </div>
 
     <div *ngIf="exileCards.length > 0" class="padded">

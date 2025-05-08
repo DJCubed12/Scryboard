@@ -1,5 +1,4 @@
-<div class = "pad_Me">
-  <h2>Main Page</h2>
+<div class="pad_Me">
   <div *ngFor="let matId of mats; index as i">
     <mat-display [matId]="matId" playerName="Player {{ i + 1 }}" />
   </div>
