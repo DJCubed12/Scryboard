@@ -1,8 +1,12 @@
 <div>
   <h2>This is the admin page</h2>
 
-  <div *ngFor="let matId of mats">
-    <mat-display [matId]="matId" [admin]="true" />
+  <div *ngFor="let matId of mats; index as i">
+    <mat-display
+      [matId]="matId"
+      [admin]="true"
+      playerName="Player {{ i + 1 }}"
+    />
   </div>
 
   <import-export-controls />

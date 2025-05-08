@@ -1,5 +1,6 @@
 <div>
-  <h2>Mat #{{ matId }}</h2>
+  <h2 *ngIf="playerName !== null">{{ playerName }}</h2>
+  <h2 *ngIf="playerName === null && matId">Mat #{{ matId }}</h2>
 
   <div *ngIf="admin && unpairedCards.length > 0">
     <h3>Unpaired Cards</h3>

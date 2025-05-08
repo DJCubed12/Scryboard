@@ -20,6 +20,8 @@ export class MatDisplayComponent implements OnInit, OnChanges {
   @Input() matId: string | null = null;
   /** This enables card edits, (re)pairing, and showing unpaired cards */
   @Input() admin: boolean = false;
+  /** Optional name for the header. Uses matId if null. */
+  @Input() playerName: string | null = null;
 
   public pairedCards: Card[] = [];
   public unpairedCards: Card[] = [];
