@@ -1,12 +1,11 @@
 <div>
   <h2>This is the admin page</h2>
 
-  <div *ngFor="let matId of mats">
-    <card-list
+  <div *ngFor="let matId of mats; index as i">
+    <mat-display
       [matId]="matId"
-      [showUnpairedCards]="true"
-      [allowEdit]="true"
-      [debug]="true"
+      [admin]="true"
+      playerName="Player {{ i + 1 }}"
     />
   </div>
 

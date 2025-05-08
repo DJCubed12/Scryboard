@@ -15,7 +15,7 @@ export class GameStateService {
   public getMats(): Observable<string[]> {
     return this.http
       .get<{ mat_ids: string[] }>(BACKEND_URL + 'mats')
-      .pipe(map((msg) => msg.mat_ids));
+      .pipe(map((msg) => msg.mat_ids.sort()));
   }
 
   public getAllCards(): Observable<Card[]> {

@@ -1,17 +1,15 @@
-<div>
-  <h2>Mat #{{ matId }}</h2>
+<div class="horizontal">
+  <div class="padded" *ngFor="let c of cards">
+    <card [card]="c" [debug]="debug" />
 
-  <div class="horizontal">
-    <div class="padded" *ngFor="let c of cards">
-      <card
-        [card]="c"
-        *ngIf="showUnpairedCards || c.api_id !== null"
-        [debug]="debug"
-      />
+    <div *ngIf="allowEdit">
+      <button [routerLink]="['/admin', 'pair', c.rfid]">
+        {{ c.api_id ? "Re-" : "" }}Pair
+      </button>
 
-      <div *ngIf="allowEdit">
-        <button [routerLink]="['/admin', 'edit', c.rfid]">Edit data</button>
-      </div>
+      <button (click)="flip(c)">Flip</button>
+
+      <button [routerLink]="['/admin', 'edit', c.rfid]">Edit data</button>
     </div>
   </div>
 </div>

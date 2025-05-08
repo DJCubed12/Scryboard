@@ -39,13 +39,13 @@ export class MatListenerService {
     });
 
     this.socket.on('matListUpdate', (matList: string[]) => {
-      this.mats.next(matList);
+      this.mats.next(matList.sort());
     });
 
     // Do normal HTTP requests to get initial values
     this.gameStateService
       .getMats()
-      .subscribe((matList) => this.mats.next(matList));
+      .subscribe((matList) => this.mats.next(matList.sort()));
     this.gameStateService
       .getAllCards()
       .subscribe((cards) => this.cards.next(cards));

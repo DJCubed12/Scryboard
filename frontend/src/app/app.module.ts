@@ -21,6 +21,7 @@ import { EditCardComponent } from './admin-page/edit-card/edit-card.component';
 import { CardResultComponent } from './admin-page/card-search/card-result/card-result.component';
 import { CardListComponent } from './shared/card-list/card-list.component';
 import { CardPileComponent } from './shared/card-pile/card-pile.component';
+import { MatDisplayComponent } from './shared/mat-display/mat-display.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CardPileComponent } from './shared/card-pile/card-pile.component';
     CardResultComponent,
     CardListComponent,
     CardPileComponent,
+    MatDisplayComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule],
   providers: [],
