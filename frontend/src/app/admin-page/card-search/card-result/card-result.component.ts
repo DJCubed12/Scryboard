@@ -47,13 +47,13 @@ export class CardResultComponent {
     if (this.isDoubleSided()) {
       this.pair.emit({
         api_id: this.card.id,
-        front_image: this.card.card_faces[0].image_uris.small,
-        back_image: this.card.card_faces[1].image_uris.small,
+        front_image: this.card.card_faces[0].image_uris.large,
+        back_image: this.card.card_faces[1].image_uris.large,
       });
     } else {
       this.pair.emit({
         api_id: this.card.id,
-        front_image: this.card?.image_uris?.small,
+        front_image: this.card?.image_uris?.large,
         back_image: DEFAULT_CARD_BACK_URL,
       });
     }

@@ -74,6 +74,12 @@ class CardRepository:
                 raise ValueError()
             else:
                 self._cards[rfid] = Card(rfid, mat_id, zone, api_id=api_id)
+
+                if zone == MatZone.LIBRARY:
+                    self._cards[rfid].is_face_up = False
+                else:
+                    self._cards[rfid].is_face_up = True
+
                 if mat_id not in self._mats:
                     mat_list_change = True
                     self._mats.add(mat_id)
@@ -122,6 +128,10 @@ class CardRepository:
         """Raises KeyError if no card with given rfid was found."""
         with self._lock:
             self._cards[rfid].zone = zone
+            if zone == MatZone.LIBRARY:
+                self._cards[rfid].is_face_up = False
+            else:
+                self._cards[rfid].is_face_up = True
         self.update_card_observers()
 
     def set_API_ID(self, rfid: str, api_id: str) -> None:
