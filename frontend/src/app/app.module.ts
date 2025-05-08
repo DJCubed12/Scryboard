@@ -21,6 +21,16 @@ import { EditCardComponent } from './admin-page/edit-card/edit-card.component';
 import { CardResultComponent } from './admin-page/card-search/card-result/card-result.component';
 import { CardListComponent } from './shared/card-list/card-list.component';
 import { CardPileComponent } from './shared/card-pile/card-pile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { MatDisplayComponent } from './shared/mat-display/mat-display.component';
 
 @NgModule({
@@ -40,7 +50,7 @@ import { MatDisplayComponent } from './shared/mat-display/mat-display.component'
     CardPileComponent,
     MatDisplayComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule, BrowserAnimationsModule, MatButtonModule, MatDividerModule, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule],
   providers: [],
   bootstrap: [AppComponent],
 })
