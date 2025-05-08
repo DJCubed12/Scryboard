@@ -1,8 +1,19 @@
 table, th, td {
-  border: 2px solid black;
+  // border: 2px solid black;
   text-align: center;
   color: black;
   vertical-align: middle;
+  border-collapse: collapse;
+}
+
+section{
+  display: table;
+  border: 2px black;
+}
+
+.row_display{
+  display: table-row;
+  margin: 8px 8px 8px 0;
 }
 
 .card_name{
