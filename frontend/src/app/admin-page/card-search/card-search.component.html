@@ -6,14 +6,20 @@
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Card Name" #title>
       </mat-form-field>
-      <button mat-raised-button (click)="searchByTitle(title.value.trim())">Search</button>
+      <button mat-raised-button class = "card_name" (click)="searchByTitle(title.value.trim())">Search</button>
     </form>   
   </div>
-  
+
+  <section>
+    <div class = "row_Display">
+
+    </div>
+  </section>
+
   <div>
     <table>
       <tr>
-        <td *ngFor="let card of cards.slice(0, 12); let i = index">
+        <td *ngFor="let card of cards.slice(0, 12)">
           <span class = "card_name">{{ card["name"] }}</span>
         </td>
       </tr>

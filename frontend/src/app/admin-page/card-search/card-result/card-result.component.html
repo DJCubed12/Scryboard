@@ -1,13 +1,13 @@
 <div>
   <span>
-    <span *ngIf="getCardImage() !== null; else no_image"
-      ><img [src]="getCardImage()"
-    /></span>
+    <span *ngIf="getCardImage() !== null; else no_image">
+      <img [src]="getCardImage()" (click)="emitPairEvent()"/>
+    </span>
   </span>
 
   <div>
-    <button mat-raised-button class = "image_Buttons" (click)="emitPairEvent()">Pair</button>
-    <button mat-raised-button class = "image_Buttons" *ngIf="isDoubleSided()" (click)="flip()">Flip</button>
+    <!-- <button mat-raised-button class = "image_Buttons" (click)="emitPairEvent()">Pair</button> -->
+    <!-- <button mat-raised-button class = "image_Buttons" *ngIf="isDoubleSided()" (click)="flip()">Flip</button> -->
   </div>
 
   <ng-template #no_image>
