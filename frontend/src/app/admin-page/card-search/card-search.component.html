@@ -4,9 +4,9 @@
   <div>
     <form class="example-form">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Card Name" #title>
+        <input matInput placeholder="Card Name" #title (keyup.enter)="searchByTitle(title.value.trim())">
       </mat-form-field>
-      <button mat-raised-button class = "card_name" (click)="searchByTitle(title.value.trim())">Search</button>
+      <!-- <button mat-raised-button class = "card_name" (click)="searchByTitle(title.value.trim())">Search</button> -->
     </form>   
   </div>
 

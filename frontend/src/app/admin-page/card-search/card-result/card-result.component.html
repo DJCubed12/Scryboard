@@ -1,6 +1,6 @@
 <div>
   <span>
-    <span *ngIf="getCardImage() !== null; else no_image">
+    <span class = "pad_Me" *ngIf="getCardImage() !== null; else no_image">
       <img [src]="getCardImage()" (click)="emitPairEvent()"/>
     </span>
   </span>
