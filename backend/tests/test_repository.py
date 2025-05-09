@@ -1,6 +1,6 @@
 import pytest
 
-from .repository_fixture import repository, CardRepository
+from .fixtures import repository, CardRepository
 
 
 def test_is_empty(repository: CardRepository):

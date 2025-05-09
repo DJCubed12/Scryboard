@@ -4,12 +4,13 @@ from pytest_bdd import given, when, then, scenarios, parsers
 import os
 import sys
 
-from .repository_fixture import repository, CardRepository
+from .fixtures import repository
 from .tools import get_rand_id
 
 # Sets the path to backend/ so all the imports will work
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from card import Card, MatZone
+from repository import CardRepository
 
 # Link the feature files
 scenarios(
