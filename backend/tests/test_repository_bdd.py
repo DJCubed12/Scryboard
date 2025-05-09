@@ -1,8 +1,15 @@
 import pytest
 from pytest_bdd import given, when, then, scenarios, parsers
 
+import os
+import sys
+
 from .repository_fixture import repository, CardRepository
 from .tools import get_rand_id
+
+# Sets the path to backend/ so all the imports will work
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from card import Card, MatZone
 
 # Link the feature files
 scenarios(
@@ -34,7 +41,9 @@ def step_nonempty_repo(context, repository: CardRepository):
 
 @when("a card is added")
 def step_add_card(context):
-    context["repo"].add_card(get_rand_id(), get_rand_id())
+    rfid = get_rand_id()
+    context["repo"].add_card(rfid, get_rand_id())
+    context["added-rfid"] = get_rand_id()
 
 
 @when("a card is added with duplicate RFID")
@@ -47,10 +56,31 @@ def step_add_card_dup_rfid(context):
         context["error"] = e
 
 
+@when(parsers.parse("a card is added with zone {zone}"))
+def step_add_card_with_zone(context, zone: str):
+    matZone = MatZone(zone)
+    rfid = get_rand_id()
+    context["repo"].add_card(rfid, get_rand_id(), zone=matZone)
+    context["added-card"] = rfid
+
+
 @then(parsers.parse("there is {n:d} cards in the repository"))
 def step_check_card_count(context, n: int):
     cards = context["repo"].get_all()
     assert len(cards) == n
+
+
+@then(parsers.parse("the card is in the repository with zone {zone}"))
+def step_check_card_zone(context, zone: str):
+    matZone = MatZone(zone)
+    card: Card = context["repo"].get_card(context["added-card"])
+    assert card.zone == matZone
+
+
+@then(parsers.parse("the card is face {up_or_down}"))
+def step_check_face_up_or_down(context, up_or_down: str):
+    card: Card = context["repo"].get_card(context["added-card"])
+    assert card.is_face_up == (up_or_down == "up")
 
 
 @then("an error is thrown")
