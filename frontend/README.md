@@ -2,11 +2,7 @@
 
 ## Running it
 
-Once everything is setup, just run `ng serve` (in this directory) and go to [localhost:4200](http://localhost:4200/)
-
-## Development
-
-I added a simple component that talks to our backend so you can play with things and see how it works. Look over the `src/app/talk-to-backend/talk-to-backend.component.html` and `src/app/talk-to-backend/talk-to-backend.component.ts` files and play with them a bit while looking at the website. There's some comments in there to try to explain what's going on.
+Once everything is setup, just run `npm run start` (in this directory) and go to [localhost:4200](http://localhost:4200/)
 
 ## Angular help
 
@@ -28,11 +24,11 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ### Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io). _(Note that there are currently no unit tests written for the frontend)_
 
 ### Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities. _(Note that there are currently no unit tests written for the frontend)_
 
 ### Further help
 

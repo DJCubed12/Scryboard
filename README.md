@@ -1,19 +1,20 @@
 # Scryboard
 
-Trading Card Game Playmat
+Web-based visualizer for Magic The Gathering
 
 ## Running it
 
-Assuming you did everything in the "First Time Setup" section...
+If this is your first time using the app, first read through the "First Time Setup" section.
 
-In the `frontend` folder run `npm run start`.
+Running this app will require two terminals, one in the `frontend/` folder, and one in `backend/`.
 
-Then, in another terminal, go to the `backend` folder run:
-```
-pipenv run python app.py
-```
+In the `frontend/` folder run `npm run start`.
 
-Open up the website at [localhost:4200](http://localhost:4200/).
+Then, in the `backend/` terminal run `pipenv run python app.py`.
+
+Finally, open up the website at [localhost:4200](http://localhost:4200/).
+
+Until the physical Scryboard mats are developed, please use the `mat_emulator.py` tool in the `tools/` folder. To use the tool, simply run `pipenv run python mat_emulator.py` from the `tools/` directory.
 
 ## First Time Setup
 
@@ -31,7 +32,7 @@ NodeJS has installation instructions [here](https://nodejs.org/en/download/packa
 
 #### On both
 
-Once _NodeJS_ is installed, in your terminal in the `frontend` folder run `npm install`.
+Once _NodeJS_ is installed, in your terminal in the `frontend/` folder run `npm install`.
 
 Now the frontend should be good to go, read the [README.md](frontend/README.md) there for further info.
 
@@ -48,8 +49,16 @@ pip install --user pipenv
 pipenv install
 ```
 
-#### I got an error
+#### Troubleshooting Pipenv errors
 
 If you got an error with `pip install pipenv` about externally managed packages, ignore it with `pip install pipenv --break-system-packages`.
 
 If you get error saying no command named `pipenv` found, try changing it to `python -m pipenv`.
+
+### Developer tools
+
+The `tools/` folder houses the `mat_emulator.py` tool, with its own dependencies. In this folder run `pipenv install`. In case of errors refer to the above _"Troubleshooting Pipenv errors"_ section.
+
+## Testing
+
+Currently unit tests only exist for the backend. To run these, simply go to the `backend/` folder and run `pipenv run pytest`. The tests themselves can be found in `backend/tests`.
