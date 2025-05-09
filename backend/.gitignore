@@ -1,1 +1,6 @@
+.coverage
+report.html
+
 __pycache__/
+.pytest_cache/
+.hypothesis/
