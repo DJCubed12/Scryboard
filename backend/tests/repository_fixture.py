@@ -1,5 +1,4 @@
 import pytest
-from pytest_mock import MockFixture
 
 import os
 import sys
@@ -12,8 +11,6 @@ from repository import CardRepository
 
 
 @pytest.fixture
-def repository(mocker: MockFixture):
-    with mocker.patch("repository.sendCardUpdate"):
-        with mocker.patch("repository.sendMatUpdate"):
-            CardRepository._instance = None
-            yield CardRepository()
+def repository():
+    CardRepository._instance = None
+    yield CardRepository()

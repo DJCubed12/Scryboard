@@ -30,8 +30,14 @@ def handle_connect_error(data):
 
 
 def sendCardUpdate(data):
-    socketio.emit("cardUpdate", data)
+    try:
+        socketio.emit("cardUpdate", data)
+    except:
+        pass
 
 
 def sendMatUpdate(matList: list[str]):
-    socketio.emit("matListUpdate", matList)
+    try:
+        socketio.emit("matListUpdate", matList)
+    except:
+        pass
